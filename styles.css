@@ -19,5 +19,7 @@ time {
 }
 
 
-
+textarea {
+  resize: horizontal;
+}
 
