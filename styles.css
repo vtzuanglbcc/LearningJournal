@@ -19,9 +19,10 @@ time {
 }
 
 
-div.resize {
+.resize {
   resize: horizontal;
-  width: 20em;
-  height: 10em;
+  overflow: auto;
+  border: 1px solid orange;
+  width: 300px;
 }
 
