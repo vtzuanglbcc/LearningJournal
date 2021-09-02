@@ -19,7 +19,7 @@ time {
 }
 
 
-textarea {
+div.resize {
   resize: horizontal;
 }
 
