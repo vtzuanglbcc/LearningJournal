@@ -4,10 +4,46 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <p>Hello World! Editing from html file</p>
-  
-    <?php
-      echo '<p>Is php working?</p>';
-    ?>
+    <h1>Victor's Learning Journal at LBCC PHP/MySQL</h1>
+    <main>
+      <article>
+        <p>
+          <time datetime="2021-09-02">September 2 2021</time>
+        </p>
+        <p>
+          For this first week of PHP/MySQL, I learned the very basics of
+          PHP. I didn't realize previously that PHP required a webserver
+          to function. And that PHP code was actually written into a file
+          that very much resembles a HTML document, but is saved with the 
+          PHP file name extension. 
+        </p>
+        <p>
+          It was very interesting that single and double quotes mean different
+          things in PHP. Content within singles quotes are not interpreted but
+          instead are displayed literally. For example, in this:
+        </p>
+        <pre>
+                <?php
+                  $car = "Camry"; 
+                  $color = "blue";
+                  echo 'My $car is $color.";
+                  echo "My $car is $color.";
+                  ?>
+        </pre>
+        <p>
+           the first echo statement will display 'My $car is $color.'. Meanwhile,
+          the second echo will display "My Camry is blue". 
+        </p>
+        <p class="supplemental">
+          Supplemental Learning 
+        </p>
+        <p>This week, I went through some of the W3Schools's CSS learning materials. I 
+          thought the <a href="https://www.w3schools.com/css/css_border.asp">border-radius property</a>
+          was really useful to make rounded borders. There were also some CSS topics such
+          as tooltips that was presented but I haven't thought of a good place to use them yet.
+        </p>
+      </article>
+    
+    </main>
   </body>
 </html>
