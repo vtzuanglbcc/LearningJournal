@@ -2,7 +2,7 @@ body {
   padding: 2%;
   margin: 2%;
   font-family: "Lucida Handwriting", Monaco, Georgia;
-  background-color: darkgreen;
+  background-color: lightorange;
 }
 h1 {
   text-shadow: 1px 1px 3px darkblue; 
@@ -11,9 +11,7 @@ h1 {
 }
 
 p {
-  border-style: solid;
-  border-color: lightblue;
-  border-radius: 8.5px;
+ 
 }
 
 
