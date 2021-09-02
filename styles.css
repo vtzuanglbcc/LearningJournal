@@ -22,7 +22,8 @@ time {
 .resize {
   resize: horizontal;
   overflow: auto;
-  border: 1px solid orange;
+  border: 4px solid orange;
   width: 300px;
+  border-radius: 8px;
+  padding: 1%;
 }
-
