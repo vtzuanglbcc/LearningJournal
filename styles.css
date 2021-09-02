@@ -1,9 +1,17 @@
+body {
+  padding: 2%;
+  margin: 2%;
+}
 h1 {
   text-shadow: 1px 1px 3px darkblue; 
+  text-align: center;
+  
 }
 
 p {
-    
+  border-style: solid;
+  border-color: lightblue;
+  border-radius: 8.5px;
 }
 
 
