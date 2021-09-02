@@ -21,5 +21,7 @@ time {
 
 div.resize {
   resize: horizontal;
+  width: 20em;
+  height: 10em;
 }
 
