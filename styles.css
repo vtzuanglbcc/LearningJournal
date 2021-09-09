@@ -28,3 +28,10 @@ time {
   border-radius: 8px;
   padding: 1%;
 }
+
+
+.note {
+  font-size: 50%;
+  font-weight: bold;
+  color: red;
+}
