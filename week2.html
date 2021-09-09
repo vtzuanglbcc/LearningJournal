@@ -33,7 +33,7 @@
             <input type="checkbox" id="potatoes" name="vegetables[]" value="potatoes">Potatoes<br>     
             <input type="checkbox" id="tomatoes" name="vegetables[]" value="tomatoes">Tomatoes<br><br>  
             <input type="submit" value="Subscribe">
-            <p class="note">Note: unfortunately, it appears GitHub Pages does not allow server processing of PHP, and 
+            <p>Note: unfortunately, it appears GitHub Pages does not allow server processing of PHP, and 
               will output <code>405 Not Allowed</code>
             </p>
          </blockquote>
@@ -58,10 +58,10 @@
            outputting it to the user:
          </p>
          <blockquote><pre>
-           <span class="variable">$firstName</span> = $_POST['firstname'];
-           <span class="variable">$email</span> = $_POST['email'];
-           echo "Thank you for subscribing to our Email Subscriber List, <span class="variable">$firstName</span>&lt;br&gt;\n";
-           echo "We will send emails to <span class="variable">$email</span>&lt;br&gt;\n";
+           $firstName= $_POST['firstname'];
+           $email = $_POST['email'];
+           echo "Thank you for subscribing to our Email Subscriber List, $firstName>&lt;br&gt;\n";
+           echo "We will send emails to $email&lt;br&gt;\n";
          </pre></blockquote>
          <p>
            Finally, we also reviewed the important difference between double and single quotes in PHP.
@@ -70,6 +70,22 @@
            have just been printed as the string $firstName and $email. For their <em>values</em> to be 
            printed, either use double quotes, or use single quotes and the concatenation "." operator 
            which is the period. 
+         </p>
+         <p class="supplemental">
+           Supplemental Learning
+         </p>
+         <p>
+           This week, I read online about the checkbox input type above and how the name attribute of the related
+           checkboxes should have a array name. For example:
+         </p>
+         <blockquote><pre>
+            <input type="checkbox" id="eggplant" name="vegetables[]" value="eggplant">Eggplant<br>
+            <input type="checkbox" id="peppers" name="vegetables[]" value="peppers">Peppers<br>
+         </pre></blockquote>
+         <p>
+            The name attribute is set to vegetables[] rather than vegetables, so that when the PHP processes the vegetables,
+            it will not be just one string value such as "peppers", but instead an array of strings which could include "eggplant",
+            "peppers", and other values.
          </p>
         
     </main>    
