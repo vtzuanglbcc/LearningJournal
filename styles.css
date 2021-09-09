@@ -42,3 +42,7 @@ The red and orange color are difficult to read on a blue background
   color: orange;
 }
 */
+
+footer {
+  font-style: italic;
+}
