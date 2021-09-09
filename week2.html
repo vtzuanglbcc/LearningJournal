@@ -47,6 +47,19 @@
          <p>
            tells us that the form data is sent to "process_form.php" to process the data and
            that the "post" method is used rather than "get".
+         </p>
+         <p>
+           When the data is sent to "process_form.php", the information entered by the user 
+           is then accessible to the server through the <code>$_POST['firstname']</code> and
+           <code>$_POST['email']</code> variables.These values can then be used in various ways, such
+           outputting it to the user:
+         </p>
+         <blockquote><code>
+           $firstName = $_POST['firstname'];
+           $email = $_POST['email'];
+           echo "Thank you for subscribing to our Email Subscriber List, $firstName<br>\n";
+           echo "We will send emails to $email<br>\n";
+         </code></blockquote>
     </main>    
   </body>
 </html>
