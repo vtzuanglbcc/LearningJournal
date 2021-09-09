@@ -35,3 +35,7 @@ time {
   font-weight: bold;
   color: red;
 }
+
+.variable {
+  color: orange;
+}
