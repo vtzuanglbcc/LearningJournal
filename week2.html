@@ -56,11 +56,20 @@
            outputting it to the user:
          </p>
          <blockquote><pre>
-           $firstName = $_POST['firstname'];
-           $email = $_POST['email'];
-           echo "Thank you for subscribing to our Email Subscriber List, $firstName&lt;br&gt;\n";
-           echo "We will send emails to $email&lt;br&gt;\n";
+           <span class="variable">$firstName</span> = $_POST['firstname'];
+           <span class="variable">$email</span> = $_POST['email'];
+           echo "Thank you for subscribing to our Email Subscriber List, <span class="variable">$firstName</span>&lt;br&gt;\n";
+           echo "We will send emails to <span class="variable">$email</span>&lt;br&gt;\n";
          </pre></blockquote>
+         <p>
+           Finally, we also reviewed the important difference between double and single quotes in PHP.
+           In the previous block of code, if the echo statement used single quotes, then the $firstName
+           and $email variables would not have been interpreted to their values, and instead would 
+           have just been printed as the string $firstName and $email. For their <em>values</em> to be 
+           printed, either use double quotes, or use single quotes and the concatenation "." operator 
+           which is the period. 
+         </p>
+        
     </main>    
   </body>
 </html>
