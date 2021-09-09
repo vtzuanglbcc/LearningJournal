@@ -22,7 +22,7 @@
           story of HTML forms basically ended here after clicking the
           "submit" button:
         </p>
-        <samp>
+        <code>
           <form action="process_form.php" method="post">
             <h4>Subscribe to Our Email List</h4>
             <p>Enter your first name: <input type="text" name="firstname"></p>
@@ -31,11 +31,22 @@
             <input type="checkbox" id="eggplant" name="vegetables[]" value="eggplant">Eggplant<br>
             <input type="checkbox" id="peppers" name="vegetables[]" value="peppers">Peppers<br>
             <input type="checkbox" id="potatoes" name="vegetables[]" value="potatoes">Potatoes<br>     
-            <input type="checkbox" id="tomatoes" name="vegetables[]" value="tomatoes">Tomatoes<br>  
+            <input type="checkbox" id="tomatoes" name="vegetables[]" value="tomatoes">Tomatoes<br><br>  
             <input type="submit" value="Subscribe">
-         </samp>
-          
-        
+         </code>
+         <p>
+            Now, with PHP, the story is just starting with clicking of the Subscribe
+           button. PHP takes the information provided in this form and then processes the 
+           data. This week we delved into the how the <code>action</code> and <code>method</code>
+           attribute of the HTML form sends the data in the form to the server, and how PHP
+           works with that data. For example, this code:
+         </p>
+         <blockquote><code>
+            &lt;form action=&quot;process_form.php&quot; method=&quot;post&quot;&gt;
+         </code></blockquote>
+         <p>
+           tells us that the form data is sent to "process_form.php" to process the data and
+           that the "post" method is used rather than "get".
     </main>    
   </body>
 </html>
