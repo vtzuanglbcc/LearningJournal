@@ -72,19 +72,66 @@
           </pre></blockquote>
     
       As a sidenote, the range can also be used to create an array of letters such as 
-      range('a', 'm') and is_array() returns whether a variable is an array.
+    <code>range('a', 'm')</code> and <code>is_array()</code> returns whether a variable is an array.
           
           
           
       </p>
+      <p>
+        There are also quite a few sorting methods that go with arrays. Just four are 
         
+        <blockquote><pre>
+        ksort();
+        krsort();
+        asort();
+        arsort();
+        </pre></blockquote>
+       
+        The "k" means stand for key, the "a" stands for value, and "r" indicates descending order. So ksort() sorts
+  by key in ascending order, krsort() sorts by key in descending order, asort() sorts by value in ascending order, and
+  arsort() sorts by value in descending order.
         
+     </p>
+
+     <p> 
+        There is also the explode(separator, $string) which returns an array by separating a 
+       string by a specified separator. The opposite is implode(glue, $array) which produces
+       a string by joining together the elements of an array by using a glue string.
+       
+       
+     </p>
+     <p>
+       Another aspect of PHP arrays is that if the keys of an array are strings, you need to use curly braces to
+       echo the value array element. For example, the curly braces here are required
+       
+       <blockquote><pre>
+           echo "The state is <strong>{</strong>$state['CA']<strong>}</strong>";
+       </pre></blockquote>
+
+
+ 
          <p class="supplemental">
            Supplemental Learning
          </p>
          <p>
-          
+          This week I read about the CSS that goes into making tooltips. While visiting various sites such
+           as Youtube or Google, I noticed how stylized tooltips are used prevalently. I think the thing that
+           confused we when learning about tooltips is the use of the position property. The position property
+           often is set to relative or absolute. Relative is relative to the viewport or where it is normally 
+           positioned, and absolute is compared to its closest ancestor. So how does this apply to tooltips? 
+           
         </p>
+        <p>
+          Since the tooltip text occurs in the HTML code after the tooltip container, the tooltip text will
+          have an absolute position that is absolute to the tooltip container. The positioning of the tooltip
+          text uses top, bottom, left and right. How I like to think of this is how far from the top will the tooltip
+          text be at? If it is further from the top, then that would mean increasing positive values for top. Here is
+          a sample tooltip: </p>
+
+      <p>
+        <div class="tooltip"> <span class="tooltiptext"> <a href="week2.html">Week 2</a></span></div>
+      </p>
+
     </main>
     <hr>
     <footer>
