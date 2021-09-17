@@ -50,6 +50,7 @@ footer {
 
 .tooltip {
     position: relative;
+    display: inline-block;
     
      
 }
@@ -57,6 +58,14 @@ footer {
 .tooltiptext {
     position: absolute; 
     visibility: hidden;
+    top: 100%;
+    left: 50%;
+    width: 4em;
+    background-color: gray;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    z-index: 1;
     
 }
 
