@@ -57,7 +57,7 @@ footer {
 
 .tooltiptext {
     position: absolute; 
-    visibility: hidden;
+    /*visibility: hidden;*/
     top: 100%;
     left: 50%;
     width: 4em;
