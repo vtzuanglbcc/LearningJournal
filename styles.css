@@ -31,13 +31,11 @@ time {
 
 /*
 The red and orange color are difficult to read on a blue background
-
 .note {
   font-size: 110%;
   font-weight: bold;
   color: red;
 }
-
 .variable {
   color: orange;
 }
@@ -58,18 +56,20 @@ footer {
 .tooltip .tooltiptext {
     position: absolute; 
     visibility: hidden;
-    top: 125%;
-    left: 25%;
+    top: 135%;
+    left: -30%;
     width: 120px;
-    background-color: blue;
+    background-color: rgb(38, 111, 221);
     color: white;
     border-radius: 5px;
     padding: 5px;
     z-index: 1;
+    opacity: 0.97;
+    text-align: center;
     
 }
 
-// CSS pseudo-class
+
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
