@@ -57,11 +57,11 @@ footer {
 
 .tooltip .tooltiptext {
     position: absolute; 
-    /*visibility: hidden;*/
-    top: 100%;
-    left: 50%;
+    visibility: hidden;
+    top: 125%;
+    left: 25%;
     width: 120px;
-    background-color: gray;
+    background-color: blue;
     color: white;
     border-radius: 5px;
     padding: 5px;
