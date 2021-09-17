@@ -46,3 +46,21 @@ The red and orange color are difficult to read on a blue background
 footer {
   font-style: italic;
 }
+
+
+.tooltip {
+    position: relative;
+    
+     
+}
+
+.tooltiptext {
+    position: absolute; 
+    visibility: hidden;
+    
+}
+
+// CSS pseudo-class
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
