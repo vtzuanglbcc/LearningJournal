@@ -41,8 +41,9 @@
           numbers. For example
           
          <blockquote><pre>
-           $years = range(2021, 2031);
-           $age = range(18, 58);
+
+              $years = range(2021, 2031);
+              $age = range(18, 58);
            
            
            </pre></blockquote>
@@ -57,9 +58,9 @@
         array are needed, then this syntax is used
         
         <blockquote><pre>
-            foreach($years as $value) {
-                echo "$value";  
-            }
+              foreach($years as $value) {
+                  echo "$value";  
+              }
           </pre> </blockquote>
            
         If the keys are needed as well, then this is needed:
@@ -81,10 +82,12 @@
         There are also quite a few sorting methods that go with arrays. Just four are 
         
         <blockquote><pre>
-        ksort();
-        krsort();
-        asort();
-        arsort();
+        
+                      
+              ksort();
+              krsort();
+              asort();
+              arsort();
         </pre></blockquote>
        
         The "k" means stand for key, the "a" stands for value, and "r" indicates descending order. So ksort() sorts
@@ -105,7 +108,7 @@
        echo the value array element. For example, the curly braces here are required
        
        <blockquote><pre>
-           echo "The state is <strong>{</strong>$state['CA']<strong>}</strong>";
+              echo "The state is <strong>{</strong>$state['CA']<strong>}</strong>";
        </pre></blockquote>
 
 
@@ -129,7 +132,8 @@
           a sample tooltip: </p>
 
       <p>
-        <div class="tooltip"> <span class="tooltiptext"> <a href="week2.html">Week 2</a>Read Week 2 Journal Entry</span></div>
+        <div class="tooltip">  <a href="week2.html">Week 2</a>
+          <span class="tooltiptext">Read Week 2 Journal Entry</span></div>
       </p>
       <p>
           Here, the tooltip text is actually coded into the HTML but is hidden by HTML. Only after the mouse hovers over
