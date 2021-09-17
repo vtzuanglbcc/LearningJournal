@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Week 2</title>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Victor's Learning Journal at LBCC PHP/MySQL</h1>
+    <nav>
+        <a href="index.html">Go to Week 1</a>
+    </nav>
+    <main>
+      
+
+      <article>
+        <h3>Week 2</h3>
+        <p>
+          <time datetime="2021-09-09">September 9 2021</time>
+        </p>
+        <p>
+          This second week of PHP/MySQL was an exciting adventure
+          into what happens after you submit a HTML form. Previously, the
+          story of HTML forms basically ended here after clicking the
+          "submit" button:
+        </p>
+        <blockquote>
+          <form action="process_form.php" method="post">
+            <fieldset>
+            <legend>Subscribe to Our Email List</legend>
+            <p>Enter your first name: <input type="text" name="firstname" required></p>
+            <p>Enter your email address: <input type="email" name="email" required></p>
+            <p>Select your interests:</p>
+            <input type="checkbox" id="eggplant" name="vegetables[]" value="eggplant">Eggplant<br>
+            <input type="checkbox" id="peppers" name="vegetables[]" value="peppers">Peppers<br>
+            <input type="checkbox" id="potatoes" name="vegetables[]" value="potatoes">Potatoes<br>     
+            <input type="checkbox" id="tomatoes" name="vegetables[]" value="tomatoes">Tomatoes<br><br>  
+            <input type="submit" value="Subscribe">
+            <p><bold>Note</bold>: unfortunately, it appears GitHub Pages does not allow server processing of PHP, and 
+              will output <code><bold>405 Not Allowed</bold></code>
+            </p>
+            </fieldset>
+          </form>
+         </blockquote>
+         <p>
+            Now, with PHP, the story is just starting with clicking of the Subscribe
+           button. PHP takes the information provided in this form and then processes the 
+           data. This week we delved into the how the <code>action</code> and <code>method</code>
+           attribute of the HTML form sends the data in the form to the server, and how PHP
+           works with that data. For example, this code:
+         </p>
+         <blockquote><code>
+            &lt;form action=&quot;process_form.php&quot; method=&quot;post&quot;&gt;
+         </code></blockquote>
+         <p>
+           tells us that the form data is sent to "process_form.php" to process the data and
+           that the "post" method is used rather than "get".
+         </p>
+         <p>
+           When the data is sent to "process_form.php", the information entered by the user 
+           is then accessible to the server through the <code>$_POST['firstname']</code> and
+           <code>$_POST['email']</code> variables.These values can then be used in various ways, such
+           outputting it to the user:
+         </p>
+         <blockquote><pre>
+           $firstName= $_POST['firstname'];
+           $email = $_POST['email'];
+           echo "Thank you for subscribing to our Email Subscriber List, $firstName>&lt;br&gt;\n";
+           echo "We will send emails to $email&lt;br&gt;\n";
+         </pre></blockquote>
+         <p>
+           Finally, we also reviewed the important difference between double and single quotes in PHP.
+           In the previous block of code, if the echo statement used single quotes, then the $firstName
+           and $email variables would not have been interpreted to their values, and instead would 
+           have just been printed as the string $firstName and $email. For their <em>values</em> to be 
+           printed, either use double quotes, or use single quotes and the concatenation "." operator 
+           which is the period. 
+         </p>
+         <p class="supplemental">
+           Supplemental Learning
+         </p>
+         <p>
+           This week, I read online about the checkbox input type above and how the name attribute of the related
+           checkboxes should have a array name. For example:
+         </p>
+         <blockquote><pre>
+            &lt;input type="checkbox" id="eggplant" name="vegetables[]" value="eggplant"&gt;Eggplant<br>
+            &lt;input type="checkbox" id="peppers" name="vegetables[]" value="peppers"&gt;Peppers<br>
+         </pre></blockquote>
+         <p>
+            The name attribute is set to vegetables[] rather than vegetables, so that when the PHP processes the vegetables,
+            it will not be just one string value such as "peppers", but instead an array of strings which could include "eggplant",
+            "peppers", and other values.
+         </p>
+         <p>
+           I also reviewed nesting a fieldset within a form, and a legend nested within a fieldset. This allows for a clearer 
+           grouping of a form.
+        </p>
+        <blockquote><code><pre>
+          &lt;form&gt;
+            &lt;fieldset&gt;
+              &lt;legend&gt;Subscribe to Our Email List&lt;/legend&gt; 
+            &lt;/fieldset&gt;
+          &lt;/form&gt;
+        </pre></code></blockquote>
+        <p>
+          The content with the opening and closing legend tags is what is placed as the caption for the fieldset, in this case 
+          "Subscribe to Our Email List".
+        </p>
+    </main>
+    <hr>
+    <footer>
+      Last updated 9/9/2021        
+    </footer>
+  </body>
+</html>
