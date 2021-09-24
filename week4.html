@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Week 4</title>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Victor's Learning Journal at LBCC PHP/MySQL</h1>
+    <nav>
+        <a href="week3.html">Go to Week 3</a>
+    </nav>
+    <main>
+      
+
+      <article>
+        <h3>Week 4</h3>
+        <p>
+          <time datetime="2021-09-24">September 24 2021</time>
+        </p>
+        <p>
+          This week I reviewed array_rand() which is a function that takes in 
+          an array and the number of random keys you want to generate from that 
+          array. 
+        </p>
+        <blockquote><pre>
+            $keys_returned = array_rand($arrayName, <number of random keys to generate>);
+        </pre></blockquote>
+        <p>
+          The function returns the keys either as a number or as an array of 
+          numbers. I noticed that if I did not specify the number of random
+          keys to generate, it would only return one key in the form of a number.
+          Meanwhile, if I specified the number of keys to return between 2 and
+          the count($arrayName), it would return an array with random values
+          which represented the keys of the $arrayName. Lastly, if I chose
+          the number of keys to be generated to be greater than count($arrayName),
+          nothing would be returned and it was NULL. Here is an example:
+        </p>
+        <blockquote><pre>
+                  $cookies = ["chocolate chip", "sugar", "peanut butter", "almond"];
+
+                  $random_keys = array_rand($cookies, 2);
+      
+                  echo $random_keys;                // returns Array  
+                  print_r($random_keys);            // returns Array ( [0] => 0 [1] => 1 )
+      
+                  echo $cookies[$random_keys[0]];   // chocolate chip
+                  echo "<br>";
+                  echo $cookies[$random_keys[1]];   // sugar
+                  echo "<br>";
+                  echo $cookies[$random_keys[2]];   //no output because only 2 keys generated
+        </pre></blockquote>
+        <p>
+          To further illustrate, if the function was called with array_rand($cookies, 1) or simply array_rand($cookies),
+          then only one key would be returned would be one integer value. Meanwhile, if the number
+          of keys generated was greater than 2 and less than count($cookies), an array was returned.
+          Lastly, NULL is returned when the entries requested to be picked is greater than 
+          count($cookies).
+        </p>
+        <blockquote><pre>
+                  $random_keys = array_rand($cookies);
+                  echo gettype($random_keys);           // integer
+                  $random_keys = array_rand($cookies, 2);
+                  echo getttype($random_keys);          // array
+                  $random_keys = array_rand($cookies, count($cookies) + 1);
+                  echo getttype($random_keys);          // NULL
+        </pre></blockquote>
+        <p>
+          I thought it was really interesting to investigate the behavior of $random_keys(). A unusual
+          thing I noticed is that if you do array_rand($cookies, count($cookies)), you actually do
+          not get random keys. Instead, you end up with this for the $random_keys array:
+        <blockquote><pre>
+                  Array ( [0] => 0 [1] => 1 [2] => 2 [3] => 3 [4] => 4 [5] => 5 [6] => 6 )
+        </pre></blockquote>
+        <p>
+          Because of this behavior, it would not make sense to generate an array of
+          random keys using this function if you are expecting to get an array of random keys 
+          that has the same number of elements as your original array. Instead, shuffle() makes
+          more sense. Shuffle() will shuffle all the values of an array and possibly all the values
+          will have new and different keys. 
+        </p>
+          
+
+      </article>
+    </main>
+    <hr>
+    <footer>
+      Last updated 9/24/2021        
+    </footer>
+  </body>
+</html>
