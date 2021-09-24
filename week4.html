@@ -106,9 +106,58 @@
             var_dump() for the array_search("peanut", $ingredients) was bool(false). It is useful
             that var_dump() allows the user to see what echo is not able to display.
           </p>
-          
-          
-          
+          <p class="supplemental">
+           Supplemental Learning
+          </p>
+          <p>
+            While exploring different PHP array functions, array_intersect looked like it could be
+            quite useful if you wanted to find all the elements that are shared between two arrays.
+            The return value is an Array that contains the shared values and the keys are based on the
+            keys of the first array argument. So if you reverse the arguments, then the keys will
+            be different unless the positions of the values are the same in both arrays. Here is 
+            an example:
+            
+          </p>
+          <blockquote><pre>
+                $ingredients = ["chocolate chip", "sugar", "peanut butter", "almond" ,"coffee", "tea", "butter", "strawberry"];
+                $icecream = ["chocolate chip", "vanilla", "coffee", "strawberry"];
+
+                $intersect = array_intersect($ingredients, $icecream);
+                print_r($intersect);                          //Array ( [0] => chocolate chip [4] => coffee [7] => strawberry ) 
+
+                $intersect = array_intersect($icecream, $ingredients);
+                print_r($intersect);                          // Array ( [0] => chocolate chip [2] => coffee [3] => strawberry )
+          </pre></blockquote>
+          <p>
+            I think array_intersect() would be useful if you wanted to find matching values in
+            two arrays and you wanted to easily work with those values. 
+          </p>
+          <p>
+            Array_sum() caught my attention and I thought it could be very useful:
+          </p>
+          <blockquote><pre>
+                $icecream = ["chocolate chip", "vanilla", "coffee", "strawberry"];
+                $sum = array_sum($icecream);
+                echo $sum;                            // 0
+
+                $mixed = ["apple", 3, 4, 5, "cherry", 10];
+                $sum = array_sum($mixed);
+                echo $sum;                            // 22
+
+                $mixed = ["tree", 3.1415, -22, 100, "hello", "world", "50", "1000"];
+                $sum = array_sum($mixed);
+                echo $sum;                            // 1131.1415
+          </pre></blockquote>
+          <p>
+            When the array is all alphabetical strings, then the array_sum() returns zero on that
+            array. Then, I tried mixed type arrays and it appears to only add the integers. 
+            Finally, I had a mixed array with strings, float, integers, and also strings like "50"
+            which can be converted to numbers. It turns out PHP converts these numeric strings
+            into numbers, and adds them to the sum as well. This behavior is very interesting and
+            may be useful especially in adding together user input that may all be in strings. 
+            This means you do not need to convert user string input into numbers to add them, yet
+            you do not need to worry about alphabetical strings causing problems in the addition.
+          </p>
 
       </article>
     </main>
