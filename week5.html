@@ -117,54 +117,56 @@
            Supplemental Learning
           </p>
           <p>
-            While exploring different PHP array functions, array_intersect looked like it could be
-            quite useful if you wanted to find all the elements that are shared between two arrays.
-            The return value is an Array that contains the shared values and the keys are based on the
-            keys of the first array argument. So if you reverse the arguments, then the keys will
-            be different unless the positions of the values are the same in both arrays. Here is 
-            an example:
+           It was very interesting looking through the functions section of the PHP Manual and learning by
+            reading it and also trying out some code in Replit. One thing I got mistaken at first was 
+            adding a $ in front of the function name. Function names do not need a $. In this example,
+            I thought it was useful how echo can string together multiple values with a comma:
             
           </p>
           <blockquote><pre>
-                $ingredients = ["chocolate chip", "sugar", "peanut butter", "almond" ,"coffee", "tea", "butter", "strawberry"];
-                $icecream = ["chocolate chip", "vanilla", "coffee", "strawberry"];
+                  $myArray = [1,2,3,4,5];
 
-                $intersect = array_intersect($ingredients, $icecream);
-                print_r($intersect);                          //Array ( [0] => chocolate chip [4] => coffee [7] => strawberry ) 
+                  function add($array) {
+                  echo "adding last two elements: ", $array[count($array)-2] + $array[count($array) -1];
+                  }
 
-                $intersect = array_intersect($icecream, $ingredients);
-                print_r($intersect);                          // Array ( [0] => chocolate chip [2] => coffee [3] => strawberry )
+                  add($myArray);        //  echos the value "adding last two elements: 9"
           </pre></blockquote>
           <p>
-            I think array_intersect() would be useful if you wanted to find matching values in
-            two arrays and you wanted to easily work with those values. 
+            If you have default values to parameters to a function, it's best to put 
+            them last in the parameter list.
+            
           </p>
+         
+          <blockquote><pre>
+                function bakeCookie($firstCookie, $secondCookie, $thirdCookie="chocolate chip") {
+                    echo "\nBaking $firstCookie, $secondCookie, and $thirdCookie cookies today!";
+                }
+
+                bakeCookie("butter", "Sugar", "peanut butter");     // Baking butter, Sugar, and peanut butter cookies today!
+                bakeCookie("butter", "sugar");                      // Baking butter, sugar, and chocolate chip cookies today!
+          </pre></blockquote>
           <p>
-            Array_sum() caught my attention and I thought it could be very useful:
+            The manual also mentioned passing by reference values to a function by using an ampersand &.
+            Typically, when a variable is passed to a function, once the function is done, the variable
+            returns back to its original value. When an ampersand is used, the variable value may be changed
+            by the function and that that change persists after the function. PHP calls this passing 
+            a value by reference. Here, the bank account starts with 1000. When it is passed to the function
+            annualAccountFee, the & causes the bankAccount to be passed as reference, and the bankAccount
+            variable is decreased by 10 to 990:
           </p>
           <blockquote><pre>
-                $icecream = ["chocolate chip", "vanilla", "coffee", "strawberry"];
-                $sum = array_sum($icecream);
-                echo $sum;                            // 0
+                function annualAccountFee (&$account) {
+                  $account = $account - 10;
 
-                $mixed = ["apple", 3, 4, 5, "cherry", 10];
-                $sum = array_sum($mixed);
-                echo $sum;                            // 22
+                }
 
-                $mixed = ["tree", 3.1415, -22, 100, "hello", "world", "50", "1000"];
-                $sum = array_sum($mixed);
-                echo $sum;                            // 1131.1415
+                $bankAccount = 1000;
+                annualAccountFee($bankAccount);
+                echo $bankAccount;                // 990
+          
           </pre></blockquote>
-          <p>
-            When the array is all alphabetical strings, then the array_sum() returns zero on that
-            array. Then, I tried mixed type arrays and it appears to only add the integers. 
-            Finally, I had a mixed array with strings, float, integers, and also strings like "50"
-            which can be converted to numbers. It turns out PHP converts these numeric strings
-            into numbers, and adds them to the sum as well. This behavior is very interesting and
-            may be useful especially in adding together user input that may all be in strings. 
-            This means you do not need to convert user string input into numbers to add them, yet
-            you do not need to worry about alphabetical strings causing problems in the addition.
-          </p>
+          
           <p>
              I was thinking array_product() would have the same behavior as array_sum(), and it does
           with one major difference. If there is a non-numeric string in the array, then the product
