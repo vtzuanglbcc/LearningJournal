@@ -158,7 +158,6 @@
           <blockquote><pre>
                 function annualAccountFee (&$account) {
                   $account = $account - 10;
-
                 }
 
                 $bankAccount = 1000;
@@ -168,69 +167,36 @@
           </pre></blockquote>
           
           <p>
-             I was thinking array_product() would have the same behavior as array_sum(), and it does
-          with one major difference. If there is a non-numeric string in the array, then the product
-          will be zero. Once the non-numeric strings are removed from the the array, then the product
-          works as expected:
+             PHP functions can also work with a arguments that are of different lengths.
+             This works by using the ... in the function parameter and also in the function
+              call if the argument passed is an array. Also, foreach is important here too
+              to loop through the arguments that are passed to the function.
           </p>
           <blockquote><pre>
-                $mixed = ["5", 2, "10", 3.3, <strong>"tree"</strong>];
-                $product = array_product($mixed);
-                echo $product;                    // 0
+          
+               function addAll(...$values) {
+                  $sum = 0;
 
-                $mixed = ["5", 2, "10", 3.3];
-                $product = array_product($mixed);
-                echo $product;                    // 330
-           </pre></blockquote>
-           <p>
-             Another interesting array method is array_map(). With array_map(), you can pass it
-             a callback function which is applied to every element of the array. The first 
-             parameter of array_map() is the name of the function in parenthesis. Also, I realized
-             that you need to have a <em>return statement</em> in the function-- otherwise the array will
-             have keys but no values. 
-          </p>
-          <blockquote><pre>
-                  function cheese($ingredient) {
-                    return $ingredient = $ingredient . " cheese";         // needs return statement
+                  foreach($values as $v) {
+                    $sum += $v;
                   }
 
-                  $names = ["mozzarella", "swiss", "cheddar", "gouda", "kraft"];
+                  return $sum;
+              }
 
-                  $returnArray = array_map("cheese", $names);             // function name as first parameter
-                  print_r($returnArray); 
-                  
-                  // Array ( [0] => mozzarella cheese [1] => swiss cheese [2] => cheddar cheese [3] => gouda cheese [4] => kraft cheese )
-          </pre></blockquote>
-          <p>
-            The number of array methods in PHP is really impressive. Even with just the array_map(), there
-            are many different uses. One way to use it is to combine many different array into one 
-            multidimensional array by setting the first argument to null.
+              $numbers = [10,20,30,100,70];
+              echo addAll(...$numbers);     // 230
+
+              echo "\n";
+              echo addAll(5,10,200,100);    // 315
+              
+           </pre></blockquote>
+           <p>
+             Functions can also be no name and be anonymous. They can also be set
+             to variables and their values used as variables. The PHP manual mentioned
+             closures which can retain the value of variables from their enclosing scope.
           </p>
-          <blockquote><pre>
-                $city = ['San Francisco', 'Portland', 'Seattle', 'Las Vegas'];
-                $abbreviation = ['CA', 'OR', 'WA', 'NV'];
-                $state = ['California', 'Oregon', 'Washington', 'Nevada'];
-                $zip = ['94106', '97035', '98101', '88901'];
-
-                $combined = array_map(null, $city, $state, $zip, $abbreviation);
-
-                print_r($combined);
-                // Array (  [0] => Array ( [0] => San Francisco [1] => California [2] => 94106 [3] => CA ) 
-                            [1] => Array ( [0] => Portland [1] => Oregon [2] => 97035 [3] => OR ) 
-                            [2] => Array ( [0] => Seattle [1] => Washington [2] => 98101 [3] => WA ) 
-                            [3] => Array ( [0] => Las Vegas [1] => Nevada [2] => 88901 [3] => NV ) 
-                         )
-
-
-                print_r($combined[0]);
-                // Array ( [0] => San Francisco [1] => California [2] => 94106 [3] => CA )
-          </pre></blockquote>
-          <p>
-            The combined array has keys that are associated with values of each city. If we
-            just print_r one of the key-value pairs by using print_r($combined[0]), then
-            we get the value of the first element which is an Array with key-value pairs of San
-            Francisco.
-          </p>
+       
           
           
           
@@ -238,7 +204,7 @@
     </main>
     <hr>
     <footer>
-      Last updated 9/24/2021        
+      Last updated 10/1/2021        
     </footer>
   </body>
 </html>
