@@ -44,11 +44,11 @@
                $problem = false;
                
                if (empty($_POST['first_name'])) {
-                  echo "&lt;Please enter in first name&gt;";
+                  echo "&lt;p&gt;Please enter in first name&lt;/p&gt;";
                }
             
               if (!$problem) {
-                  echo "&lt;Great! Thank you for submitting the information.&gt;";
+                  echo "&lt;p&gt;Great! Thank you for submitting the information.&lt;/p&gt;";
                   $_POST = []         // clear the POST variables
               }
             }
