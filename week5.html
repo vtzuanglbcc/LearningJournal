@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Week 5</title>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Victor's Learning Journal at LBCC PHP/MySQL</h1>
+    <nav>
+        <a href="index.html">Table of Contents</a>&nbsp;|&nbsp;
+        <a href="week4.html">Go to Week 4</a>
+    </nav>
+    <main>
+      
+
+      <article>
+        <h3>Week 5</h3>
+        <p>
+          <time datetime="2021-10-01">October 1 2021</time>
+        </p>
+        <p>
+          This week I reviewed sticky forms which allows the user to not need
+          to retype or reenter form input in case the form is incomplete
+          and needs additional information. The fields that the user has already
+          entered are maintained while a message is displayed to the user informing
+          them that other fields still need to be completed.
+        </p>
+        <p>
+          Oftentimes, these forms are submitted back to itself using the its 
+          same name as the action. Here, the action is set to "form.php":
+          
+        </p>
+        <blockquote><pre>
+            &lt;form action="form.php" method="POST&gt;
+        </pre></blockquote>
+        <p>
+          The function returns the keys either as a number or as an array of 
+          numbers. I noticed that if I did not specify the number of random
+          keys to generate, it would only return one key in the form of a number.
+          Meanwhile, if I specified the number of keys to return between 2 and
+          the count($arrayName), it would return an array with random values
+          which represented the keys of the $arrayName. Lastly, if I chose
+          the number of keys to be generated to be greater than count($arrayName),
+          nothing would be returned and it was NULL. Here is an example:
+        </p>
+        <blockquote><pre>
+                  $cookies = ["chocolate chip", "sugar", "peanut butter", "almond"];
+
+                  $random_keys = array_rand($cookies, 2);
+      
+                  echo $random_keys;                // returns Array  
+                  print_r($random_keys);            // returns Array ( [0] => 0 [1] => 1 )
+      
+                  echo $cookies[$random_keys[0]];   // chocolate chip
+                  
+                  echo $cookies[$random_keys[1]];   // sugar
+                  
+                  echo $cookies[$random_keys[2]];   //no output because only 2 keys generated
+        </pre></blockquote>
+        <p>
+          To further illustrate, if the function was called with array_rand($cookies, 1) or simply array_rand($cookies),
+          then only one key would be returned would be one integer value. Meanwhile, if the number
+          of keys generated was greater than 2 and less than count($cookies), an array was returned.
+          Lastly, NULL is returned when the entries requested to be picked is greater than 
+          count($cookies).
+        </p>
+        <blockquote><pre>
+                  $random_keys = array_rand($cookies);
+                  echo gettype($random_keys);           // integer
+                  $random_keys = array_rand($cookies, 2);
+                  echo getttype($random_keys);          // array
+                  $random_keys = array_rand($cookies, count($cookies) + 1);
+                  echo getttype($random_keys);          // NULL
+        </pre></blockquote>
+        <p>
+          I thought it was really interesting to investigate the behavior of $random_keys(). A unusual
+          thing I noticed is that if you do array_rand($cookies, count($cookies)), you actually do
+          not get random keys. Instead, you end up with this for the $random_keys array:
+        <blockquote><pre>
+                  Array ( [0] => 0 [1] => 1 [2] => 2 [3] => 3 [4] => 4 [5] => 5 [6] => 6 )
+        </pre></blockquote>
+        <p>
+          Because of this behavior, it would not make sense to generate an array of
+          random keys using this function if you are expecting to get an array of random keys 
+          that has the same number of elements as your original array. Instead, shuffle() makes
+          more sense. Shuffle() will shuffle all the values of an array and possibly all the values
+          will have new and different keys. Then, you can just output the first element of that
+          shuffled array and expect to get a randomized element.
+        </p>
+        <p>
+          This week we also explored array_search(). Array_search() takes a value to search
+          for as the first parameter, and the array to search for in the second parameter. Here
+          is an example:
+        </p>
+        <blockquote><pre>
+                $ingredients = ["chocolate chip", "sugar", "peanut butter", "almond" ,"coffee", "tea", "butter"];
+
+                echo array_search("tea", $ingredients);                   // prints 5
+                var_dump( array_search("peanut", $ingredients) );         // prints bool(false)
+                echo array_search("peanut butter", $ingredients);         // prints 2
+                var_dump ( array_search("peanut butter", $ingredients) ); // prints int(2)
+
+                $myNull = null;
+                echo '$myNull is' . $myNull;      // prints $myNull is
+                var_dump($myNull);                // prints NULL
+         </pre></blockquote>
+         <p>
+            Since "tea" is in the $ingredients array, the array_search() returns the integer 5
+            because "tea" is at index 5 in $ingredients. Meanwhile, "peanut" is not in the
+            array so simply using echo on that array_search() result will not print anything.
+            I tried using var_dump() and it prints bool(false). So if the array_search() does
+            not find the value in the array, it returns false. Lastly, I was curious about
+            var_dump() for null values. PHP will var_dump a null value as NULL, while the previous
+            var_dump() for the array_search("peanut", $ingredients) was bool(false). It is useful
+            that var_dump() allows the user to see what echo is not able to display.
+          </p>
+          <p class="supplemental">
+           Supplemental Learning
+          </p>
+          <p>
+            While exploring different PHP array functions, array_intersect looked like it could be
+            quite useful if you wanted to find all the elements that are shared between two arrays.
+            The return value is an Array that contains the shared values and the keys are based on the
+            keys of the first array argument. So if you reverse the arguments, then the keys will
+            be different unless the positions of the values are the same in both arrays. Here is 
+            an example:
+            
+          </p>
+          <blockquote><pre>
+                $ingredients = ["chocolate chip", "sugar", "peanut butter", "almond" ,"coffee", "tea", "butter", "strawberry"];
+                $icecream = ["chocolate chip", "vanilla", "coffee", "strawberry"];
+
+                $intersect = array_intersect($ingredients, $icecream);
+                print_r($intersect);                          //Array ( [0] => chocolate chip [4] => coffee [7] => strawberry ) 
+
+                $intersect = array_intersect($icecream, $ingredients);
+                print_r($intersect);                          // Array ( [0] => chocolate chip [2] => coffee [3] => strawberry )
+          </pre></blockquote>
+          <p>
+            I think array_intersect() would be useful if you wanted to find matching values in
+            two arrays and you wanted to easily work with those values. 
+          </p>
+          <p>
+            Array_sum() caught my attention and I thought it could be very useful:
+          </p>
+          <blockquote><pre>
+                $icecream = ["chocolate chip", "vanilla", "coffee", "strawberry"];
+                $sum = array_sum($icecream);
+                echo $sum;                            // 0
+
+                $mixed = ["apple", 3, 4, 5, "cherry", 10];
+                $sum = array_sum($mixed);
+                echo $sum;                            // 22
+
+                $mixed = ["tree", 3.1415, -22, 100, "hello", "world", "50", "1000"];
+                $sum = array_sum($mixed);
+                echo $sum;                            // 1131.1415
+          </pre></blockquote>
+          <p>
+            When the array is all alphabetical strings, then the array_sum() returns zero on that
+            array. Then, I tried mixed type arrays and it appears to only add the integers. 
+            Finally, I had a mixed array with strings, float, integers, and also strings like "50"
+            which can be converted to numbers. It turns out PHP converts these numeric strings
+            into numbers, and adds them to the sum as well. This behavior is very interesting and
+            may be useful especially in adding together user input that may all be in strings. 
+            This means you do not need to convert user string input into numbers to add them, yet
+            you do not need to worry about alphabetical strings causing problems in the addition.
+          </p>
+          <p>
+             I was thinking array_product() would have the same behavior as array_sum(), and it does
+          with one major difference. If there is a non-numeric string in the array, then the product
+          will be zero. Once the non-numeric strings are removed from the the array, then the product
+          works as expected:
+          </p>
+          <blockquote><pre>
+                $mixed = ["5", 2, "10", 3.3, <strong>"tree"</strong>];
+                $product = array_product($mixed);
+                echo $product;                    // 0
+
+                $mixed = ["5", 2, "10", 3.3];
+                $product = array_product($mixed);
+                echo $product;                    // 330
+           </pre></blockquote>
+           <p>
+             Another interesting array method is array_map(). With array_map(), you can pass it
+             a callback function which is applied to every element of the array. The first 
+             parameter of array_map() is the name of the function in parenthesis. Also, I realized
+             that you need to have a <em>return statement</em> in the function-- otherwise the array will
+             have keys but no values. 
+          </p>
+          <blockquote><pre>
+                  function cheese($ingredient) {
+                    return $ingredient = $ingredient . " cheese";         // needs return statement
+                  }
+
+                  $names = ["mozzarella", "swiss", "cheddar", "gouda", "kraft"];
+
+                  $returnArray = array_map("cheese", $names);             // function name as first parameter
+                  print_r($returnArray); 
+                  
+                  // Array ( [0] => mozzarella cheese [1] => swiss cheese [2] => cheddar cheese [3] => gouda cheese [4] => kraft cheese )
+          </pre></blockquote>
+          <p>
+            The number of array methods in PHP is really impressive. Even with just the array_map(), there
+            are many different uses. One way to use it is to combine many different array into one 
+            multidimensional array by setting the first argument to null.
+          </p>
+          <blockquote><pre>
+                $city = ['San Francisco', 'Portland', 'Seattle', 'Las Vegas'];
+                $abbreviation = ['CA', 'OR', 'WA', 'NV'];
+                $state = ['California', 'Oregon', 'Washington', 'Nevada'];
+                $zip = ['94106', '97035', '98101', '88901'];
+
+                $combined = array_map(null, $city, $state, $zip, $abbreviation);
+
+                print_r($combined);
+                // Array (  [0] => Array ( [0] => San Francisco [1] => California [2] => 94106 [3] => CA ) 
+                            [1] => Array ( [0] => Portland [1] => Oregon [2] => 97035 [3] => OR ) 
+                            [2] => Array ( [0] => Seattle [1] => Washington [2] => 98101 [3] => WA ) 
+                            [3] => Array ( [0] => Las Vegas [1] => Nevada [2] => 88901 [3] => NV ) 
+                         )
+
+
+                print_r($combined[0]);
+                // Array ( [0] => San Francisco [1] => California [2] => 94106 [3] => CA )
+          </pre></blockquote>
+          <p>
+            The combined array has keys that are associated with values of each city. If we
+            just print_r one of the key-value pairs by using print_r($combined[0]), then
+            we get the value of the first element which is an Array with key-value pairs of San
+            Francisco.
+          </p>
+          
+          
+          
+      </article>
+    </main>
+    <hr>
+    <footer>
+      Last updated 9/24/2021        
+    </footer>
+  </body>
+</html>
