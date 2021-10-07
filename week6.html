@@ -106,94 +106,255 @@
           </p>
           
           <blockquote><pre>
-              SELECT *
+              SELECT street_name
               FROM CITY
               WHERE (zip_code = 77001) 
               OR (zip_code = 92001);
          </pre></blockquote>
-          
+            
+            <p>
+              The WHERE tells SQL which rows to return, while the column
+              name after SELECT determines which columns to return from
+              the query. Also, IS NULL means that there is not a value.
+              This is not the same as ''. '' is an empty string, while
+              IS NULL is just no value. Thus, WHERE email IS NULL and
+              WHERE email = '' are different because WHERE email IS NULL
+              means there is no value there, while WHERE email = '' is
+              that the email is an empty string.
+            
+            </p>
+            <blockquote><pre>
+            SELECT * FROM USER 
+            WHERE password = 'SHA2("white walker", 400)';
+             </pre></blockquote>
+            
+            <p>
+              An unusual thing I noticed was that in this previous query, it
+              only worked when the quotation for "white walker" matched exactly
+              what was in the database. Thus when single quotes were used, the
+              query returned zero results. Here is an example of using BETWEEN:
+              
+            </p>
+            <blockquote><pre>
+            SELECT first_name, last_name 
+            FROM USER 
+            WHERE user_id BETWEEN 5 AND 10;
+            </pre></blockquote>
+            
+            <p> 
+              This returns all the first and last names from the USER table 
+              where the user id is between 5 and 10 inclusive of both 5 and 10.
+              Instead of BETWEEN, you could also use NOT BETWEEN which would give
+              values outside of 5 to 10. An interesting aspect of MySQL is that
+              TRUE equals 1 and FALSE is 0, and adding TRUE + TRUE will equal 2.
+            </p>
+            <p>
+              LIKE and NOT LIKE are very useful in string comparison. They can be used
+              with _ and %, with _ indicating one character and % indication 0 or more
+              characters. In these two examples, the NOT LIKE '%GMAIL%' will screen out
+              any users where their email address has gmail in it. The search is not 
+              case sensitive so 'gmail' or 'Gmail' or 'GMAIL' would all be screened
+              out. The second query would only select for users where their email
+              has 'gmail' in it.
+              
+            </p>
+              <blockquote><pre>
+              SELECT first_name, last_name, email_address 
+              FROM USER 
+              WHERE email_address NOT LIKE '%GMAIL%';
+              
+              SELECT first_name, last_name, email_address 
+              FROM USER 
+              WHERE email_address LIKE '%GMAIL%';
+            </pre></blockquote>
+            
+            <p> 
+              If you wanted to search for an underscore or % sign in a LIKE
+              statement, when you need to escape it with a backslash. If you
+              used LIKE '__', this would search for any two letters together.
+              ORDER BY lets you order the search results. ASC and DESC stand
+              for ascending order or descending order. 
+              
+            </p>
+            
+            
+            
+            <blockquote><pre>
+            SELECT first_name, last_name 
+            FROM USER 
+            ORDER BY last_name ASC, first_name ASC;
+             </pre></blockquote>
+            
+            <p> 
+              This query will sort by ascending last name first, then sort
+              by ascending first name. After ordering
+              the results, you can also LIMIT results returned. You want to
+              do LIMIT last, after the results have been ordered. If you 
+              type LIMIT 10, it will result in only the first 10 results returned. 
+              If you wanted the 11th result to the 20th, then you would 
+              type LIMIT 10, 10: start from the index 10 and give 10 more
+              results. The 11th result has an index 10 similar to PHP arrays.
+              This query would give 3 results starting at the 6th result:
+            </p>
+            
+            <blockquote><pre>
+            SELECT first_name, last_name 
+            FROM USER ORDER BY last_name ASC, first_name ASC 
+            LIMIT 5, 3;
+            </pre></blockquote>
+            
+            <p>
+              Another interesting code is that to see the last 5 people
+              who registered, sort by DESC registered_date and then limit
+              to 5 results. An important thing to remember is that the 
+              LIMIT 5, 3 means that you are starting at the sixth entry, and
+              you want 3 entries returned. This is very useful in returning
+              pages of results.
+            </p>
+            
+            <p>
+              UPDATE is useful in updating data in the table. It is important
+              to user WHERE to specify which row of  data to update and to
+              use the primary key to determine which row. Also, never
+              update the primary key, and use LIMIT 1 to only update 1 row. 
+              An example would be 
+            </p>
+              
+              <blockquote><pre>
+              UPDATE USER
+              SET email="newemail@gmail.com"
+              WHERE user_id = 5 
+              LIMIT 1;
+              </pre></blockquote>
+            
+            <p>
+              DELETE FROM is useful to delete rows. If you forget the specify
+              WHERE, then it will delete the contents of the whole table.
+              Similar to UPDATE, LIMIT 1 will limit to just deleting one
+              row. An example would be 
+            </p>
+            
+              <blockquote><pre>
+              DELETE FROM USER
+              WHERE user_id = 5 
+              LIMIT 1;
+              </pre></blockquote>
+            <p>
+              DROP TABLE USER will delete the USER table and all its data. 
+              TRUNCATE TABLE USERwill empty the USER table.
+              DROP DATABASE <dbname> will delete the whole database.
+              Functions in mySQL should not have a space between the
+              function name and opening parenthesis.
+              </p>
+              <p>
+                CONCAT() concatenates values such as CONCAT(first_name, " ",
+                last_name). Alias can help with CONCAT(). For example,
+                it can make sense to do CONCAT(first_name, " ", last_name) AS
+                full_name.
+            </p>
+            
+                <blockquote><pre>
+                SELECT CONCAT(first_name, " " , last_name) AS full_name 
+                FROM USER;
+                </pre></blockquote>
+              <p>
+                The column will be labeled full_name and list all the
+                concatenated names. This will be helpful when connecting
+                mySQL to PHP to work with full_name instead of a 
+                CONCAT(...) which may have various punctuation within the
+                function. Aliases are case sensitive strings. In mySQL,
+                use the alias in the rest of the query-- for example in
+                WHERE full_name = "Peter Parker" and ORDER BY full_name. 
+                LENGTH() function will determine the length of a string.
+            
+            </p>
+            <blockquote><pre>
+                  SELECT LENGTH(last_name) AS L, last_name 
+                  FROM USER 
+                  ORDER BY L DESC 
+                  LIMIT 1;
+                  </pre></blockquote>
+            <p>
+              This query orders the length of the last name by
+              longest first and displays only the longest last name
+              from the USER table. CONCAT_WS() is very useful in that
+              it will concat with the first parameter being the 
+              separator. SELECT CONCAT_WS(" ", first_name, middle_name, last_name) AS Name
+              FROM USER will concatenate the non-null values. So you could
+              have "Luke Skywalker" or "Luke John Skywalker". The " " is the
+              separator.
+            </p>
+            <p>
+              Some math functions include CEILING(num), FLOOR(num), FORMAT(number, <number of decimal places>),
+              MOD(num1, num2) which calculates the remainder, RAND() which is a 
+              random number from 0 to 1.0, ROUND(num1, num2) which rounds num1 to
+              num2 decimal places, and SQRT(num). Interestingly, RAND() can
+              return queries in a random order. Example: SELECT * FROM USER ORDER
+              BY RAND(). FORMAT() and CONCAT() can be used together for 
+              dollar values. For example, FORMAT(3000.4, 2) will result in
+              3,000.40, and CONCAT('$', FORMAT(3000.4, 2) will result in 
+            $3000.40. So CONCAT() with FORMAT() can turn numbers into 
+              currency numbers.
+              </p>
+              
+              <p>
+                There are numerous useful Date and Time functions. Date(datetime)
+                will return the date value such as 2021-10-07. HOUR(datetime) 
+                will return 22 for 10PM. MINUTE(datetime) could return 47. 
+                DAYOFMONTH(datetime) could return 7. MONTHNAME(datetime) can
+                return October while MONTH(datetime) returns 10 for October.
+                NOW() returns the current date and time while CURDATE() is the 
+                current date and CURTIME() is the current time.
+            </p>
+            <p> 
+              DATE_FORMAT() is a very useful function for display a particular
+              date in a various number of different formats.
+              For example, SELECT DATE_FORMAT(NOW(), '%W, %M %D at %l %p')
+              will result in displaying the current date and time in this
+              format: Thursday, October 7th at 6 PM. The first parameter
+              of DATE_FORMAT is the datetime, and the second parameter
+              is a string that is the formatting you want to display.
+              
+              
+            </p>
+            <p>
+              Interestingly, to see what the time or date is on the client's
+              computer, you need to use JavaScript and not PHP or MySQL.
+            </p>
           <p class="supplemental">
            Supplemental Learning
           </p>
           <p>
-           It was very interesting looking through the functions section of the PHP Manual and learning by
-            reading it and also trying out some code in Replit. One thing I got mistaken at first was 
-            adding a $ in front of the function name. Function names do not need a $. In this example,
-            I thought it was useful how echo can string together multiple values with a comma:
-            
+           
           </p>
           <blockquote><pre>
-                  $myArray = [1,2,3,4,5];
-
-                  function add($array) {
-                  echo "adding last two elements: ", $array[count($array)-2] + $array[count($array) -1];
-                  }
-
-                  add($myArray);        //  echos the value "adding last two elements: 9"
+                  
           </pre></blockquote>
           <p>
-            If you have default values to parameters to a function, it's best to put 
-            them last in the parameter list.
+            
             
           </p>
          
           <blockquote><pre>
-                function bakeCookie($firstCookie, $secondCookie, $thirdCookie="chocolate chip") {
-                    echo "\nBaking $firstCookie, $secondCookie, and $thirdCookie cookies today!";
-                }
-
-                bakeCookie("butter", "Sugar", "peanut butter");     // Baking butter, Sugar, and peanut butter cookies today!
-                bakeCookie("butter", "sugar");                      // Baking butter, sugar, and chocolate chip cookies today!
+                
           </pre></blockquote>
           <p>
-            The manual also mentioned passing by reference values to a function by using an ampersand &.
-            Typically, when a variable is passed to a function, once the function is done, the variable
-            returns back to its original value. When an ampersand is used, the variable value may be changed
-            by the function and that change persists after the function. PHP calls this passing 
-            a value by reference. Here, the bank account starts with 1000. When it is passed to the function
-            annualAccountFee, the & causes the bankAccount to be passed as reference, and the bankAccount
-            variable is decreased by 10 to 990:
+            
           </p>
           <blockquote><pre>
-                function annualAccountFee (&$account) {
-                  $account = $account - 10;
-                }
-
-                $bankAccount = 1000;
-                annualAccountFee($bankAccount);
-                echo $bankAccount;                // 990
+              
           
           </pre></blockquote>
           
           <p>
-             PHP functions can also work with a arguments that are of different lengths.
-             This works by using the ... in the function parameter and also in the function
-              call if the argument passed is an array. Also, foreach is important here too
-              to loop through the arguments that are passed to the function.
+           
           </p>
           <blockquote><pre>
           
-               function addAll(...$values) {
-                  $sum = 0;
-
-                  foreach($values as $v) {
-                    $sum += $v;
-                  }
-
-                  return $sum;
-              }
-
-              $numbers = [10,20,30,100,70];
-              echo addAll(...$numbers);     // 230
-
-              echo "\n";
-              echo addAll(5,10,200,100);    // 315
               
            </pre></blockquote>
            <p>
-             Functions can also be not named and be anonymous. They can also be set
-             to variables and their values used as variables. The PHP manual mentioned
-             closures which can retain the value of variables from their enclosing scope.
+            
           </p>
        
           
@@ -203,7 +364,7 @@
     </main>
     <hr>
     <footer>
-      Last updated 10/1/2021        
+      Last updated 10/7/2021        
     </footer>
   </body>
 </html>
