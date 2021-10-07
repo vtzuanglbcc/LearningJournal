@@ -1,1 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Week 6</title>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Victor's Learning Journal at LBCC PHP/MySQL</h1>
+    <nav>
+        <a href="index.html">Table of Contents</a>&nbsp;|&nbsp;
+        <a href="week5.html">Go to Week 5</a> |&nbsp;
+        <a href="
+"></a>
+    </nav>
+    <main>
+      
 
+      <article>
+        <h3>Week 6</h3>
+        <p>
+          <time datetime="2021-10-07">October 7 2021</time>
+        </p>
+        <p>
+          This week we learned about SQL which allows us to query the database and to
+          retrieve data from the database and to change the data in the database. 
+          While learning about SQL, I thought it was interesting how the primary key
+          is set to NOT NULL, yet the default value is NULL. Apparently, this is 
+          correct because the primary key can be automatically incremented. For example,
+          in a table called USER, the user_id has a default value of NULL, yet
+          was defined as being NOT NULL. This is acceptable because the user_id is a
+          automatically incremented primary key.
+        </p>
+        <p>
+          To add rows to a table, you use the INSERT INTO command. For 
+          example, to insert into the USER table first and last name:
+        </p>
+        <blockquote><pre>
+            INSERT INTO USER (first_name, last_name)
+            VALUES ("Jeff", "Smith");
+        </pre></blockquote>
+        <p>
+          You can also not specify the columns you are entering data for,
+          but that would require you to enter in data for all columns even
+          if the values are NULL.
+          
+        </p>
+        <blockquote><pre>
+            INSERT INTO USER
+            VALUES ("Jeff", "Smith", NULL, 40, NULL, jsmith@gmail.com, ...);
+        </pre></blockquote>
+        <p>
+          For SQL commands, it is also important to put quotations around
+          string values such as CHAR, VARCHAR and TEXT. Date and time should
+          also be quoted. Meanwhile, numbers, functions, and NULL should not
+          be quoted. Single or double quotes can be used. Backslash can be
+          used to escape a quotation mark.
+        </p>
+        <p>
+          SHA2() and NOW() are functions. SHA2('hello', 512) will encrypt the
+          word 'hello' into a length of 512, which is the same length as a 
+          CHAR(128). NOW() is used for time, date and timestamp columns.
+        </p>
+        <blockquote><pre>
+            INSERT INTO USER
+            VALUES ("John", "Snow", SHA2("walker", 512), NOW());
+        </pre></blockquote>
+        <p>
+           The SELECT query lets you query a database for information.
+          SELECT last_name, first_name FROM USER; will retrieve the
+          last name and first name from the USER table. You can also
+          retrieve the same column many times. To limit the results
+          returned, you can use WHERE:
+          
+          
+        </p>  
+        <blockquote><pre>
+            SELECT last_name, first_name
+            FROM USER
+            WHERE email_address LIKE '%gmail%';
+          
+        </pre></blockquote>
+        <p>
+          This will display the last name, first name, and email address from the USER table 
+          where the email address has the 'gmail' in it. Here is another one:
+        </p>
+       
+        <blockquote><pre>
+            SELECT first_name, last_name
+            FROM USER
+            WHERE birth_date = '2021-10-07';
+         </pre></blockquote>
+         
+          
+          <p>
+            For SQL, the comparison operator to check whether something
+            is the same value is only one equal sign '='. This is unlike
+            most programming languages where it is '=='. The other 
+            comparison operators for SQL are the same with other languages,
+            such as <,>, <=, >=, and != for not equal. Some other 
+            operators include IS NOT NULL, IS NULL, IS TRUE, IS FALSE, 
+            BETWEEN for if a value is within a range, and NOT BETWEEN. SQL
+            also has IN for values that are a list of values, NOT IN, OR,
+            ADN, NOT, and XOR which is when only one of the two conditions
+            are true. This query would select for all the columns from
+            the CITY table where zip code is 77001 or 92001:
+          </p>
+          
+          <blockquote><pre>
+              SELECT *
+              FROM CITY
+              WHERE (zip_code = 77001) 
+              OR (zip_code = 92001);
+         </pre></blockquote>
+          
+          <p class="supplemental">
+           Supplemental Learning
+          </p>
+          <p>
+           It was very interesting looking through the functions section of the PHP Manual and learning by
+            reading it and also trying out some code in Replit. One thing I got mistaken at first was 
+            adding a $ in front of the function name. Function names do not need a $. In this example,
+            I thought it was useful how echo can string together multiple values with a comma:
+            
+          </p>
+          <blockquote><pre>
+                  $myArray = [1,2,3,4,5];
+
+                  function add($array) {
+                  echo "adding last two elements: ", $array[count($array)-2] + $array[count($array) -1];
+                  }
+
+                  add($myArray);        //  echos the value "adding last two elements: 9"
+          </pre></blockquote>
+          <p>
+            If you have default values to parameters to a function, it's best to put 
+            them last in the parameter list.
+            
+          </p>
+         
+          <blockquote><pre>
+                function bakeCookie($firstCookie, $secondCookie, $thirdCookie="chocolate chip") {
+                    echo "\nBaking $firstCookie, $secondCookie, and $thirdCookie cookies today!";
+                }
+
+                bakeCookie("butter", "Sugar", "peanut butter");     // Baking butter, Sugar, and peanut butter cookies today!
+                bakeCookie("butter", "sugar");                      // Baking butter, sugar, and chocolate chip cookies today!
+          </pre></blockquote>
+          <p>
+            The manual also mentioned passing by reference values to a function by using an ampersand &.
+            Typically, when a variable is passed to a function, once the function is done, the variable
+            returns back to its original value. When an ampersand is used, the variable value may be changed
+            by the function and that change persists after the function. PHP calls this passing 
+            a value by reference. Here, the bank account starts with 1000. When it is passed to the function
+            annualAccountFee, the & causes the bankAccount to be passed as reference, and the bankAccount
+            variable is decreased by 10 to 990:
+          </p>
+          <blockquote><pre>
+                function annualAccountFee (&$account) {
+                  $account = $account - 10;
+                }
+
+                $bankAccount = 1000;
+                annualAccountFee($bankAccount);
+                echo $bankAccount;                // 990
+          
+          </pre></blockquote>
+          
+          <p>
+             PHP functions can also work with a arguments that are of different lengths.
+             This works by using the ... in the function parameter and also in the function
+              call if the argument passed is an array. Also, foreach is important here too
+              to loop through the arguments that are passed to the function.
+          </p>
+          <blockquote><pre>
+          
+               function addAll(...$values) {
+                  $sum = 0;
+
+                  foreach($values as $v) {
+                    $sum += $v;
+                  }
+
+                  return $sum;
+              }
+
+              $numbers = [10,20,30,100,70];
+              echo addAll(...$numbers);     // 230
+
+              echo "\n";
+              echo addAll(5,10,200,100);    // 315
+              
+           </pre></blockquote>
+           <p>
+             Functions can also be not named and be anonymous. They can also be set
+             to variables and their values used as variables. The PHP manual mentioned
+             closures which can retain the value of variables from their enclosing scope.
+          </p>
+       
+          
+          
+          
+      </article>
+    </main>
+    <hr>
+    <footer>
+      Last updated 10/1/2021        
+    </footer>
+  </body>
+</html>
