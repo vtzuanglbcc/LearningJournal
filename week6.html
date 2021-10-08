@@ -325,27 +325,106 @@
            Supplemental Learning
           </p>
           <p>
-           
+           This week, we also connected PHP to the mySQL database. I thought it would
+            be important to review the steps for future reference. 
           </p>
-          <blockquote><pre>
-                  
-          </pre></blockquote>
-          <p>
             
             
-          </p>
-         
-          <blockquote><pre>
+            <ol>
+              <li>
+                In VSCode, go to View -> Extensions and download SFTP
+              </li>
+              <li>
+                In VSCode, within an Opened Folder, go to View -> Command Palette and type SFTP.
+                An SFTP JSON file will appear in your Folder. Then, fill in the JSON file. 
                 
-          </pre></blockquote>
-          <p>
-            
-          </p>
+       
           <blockquote><pre>
-              
+       
+            "name": "arbitrary folder name",
+            "host": "Put your FTP Server here",
+            "protocol": "ftp",
+            "port": 21,
+            "username": "Put FTP username",
+            "password": "Put cPanel login info",
+            "remotePath": "/public_html",
+            "uploadOnSave": true
+          </pre></blockquote>
+          </li>
+          <li>
+          This sftp.json file stays local on your computer. Now create another file
+          called db.php which actually is uploaded to the server and used on the 
+          server to connect to the database. In db.php, include this:
+          <blockquote><pre>
+          
+          &lt;?php
+          
+          $host = "127.0.0.1";
+          $user = "your database username found in mySQL Databases";
+          $pass = "your database password created when adding mySQL user";
+          $db = "the name of the exact database you created that you want to access";
+          $port = 3306;
+            
+          // this step makes the connection to the database using <a href="https://www.php.net/manual/en/mysqli.construct.php">mysqli_connect</a>
+          $connection = mysqli_connect($host, $user, $pass, $db, $port);
+          
+          if (mysqli_connect_errno()) {
+            die("DB connection failed: " . mysqli_connect_error() . " (" .
+              mysqli_connect_errno() . ")" 
+              );
+          } else {
+            echo "DB connection successful.";
+          }
+          ?&gt;
+          </pre></blockquote>
+              </li>
+              <li>
+                The above db.php is then uploaded by FTP to your 
+                server by right clicking on it and clicking upload. 
+                I made the mistake of having this file or other files
+                within the .vscode subfolder at the same level as sftp.json.
+                Don't do this! It does not work. Instead, the db.php
+                and other files in you folder should be immediately
+                within the Folder you created for uploading to the FTP.
+              </li>
+              <li>
+                Once db.php is uploaded, simply go to your URL and 
+                append the URL with db.php. It should show a message
+                whether you connected succesfully to the database or 
+                not. When it works, that db.php file can be require()
+                by any other file that needs that same database connection.
+     
+          <blockquote><pre>
+              &lt;?php
+                require('db.php');
+              ?&gt;
+          </pre></blockquote>
+                
+              </li>
+              <li>
+                To create a database query, type the query as a string
+                and save it to a variable $query. Then use the mysqli_query()
+                to pass the $connection previously created in db.php 
+                and $query.
+          
+          <blockquote><pre>
+                $query = "SELECT * FROM USER";
+                $result = mysqli_query($connection, $query);
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "$row['user_id'] . " " . $row['first_name']";
+                }
           
           </pre></blockquote>
-          
+              </li>
+              <li>
+                mysqli_query() performs a query, and returns either false
+                or a mysqli_result object if it is a sucessful query
+                using SELECT, SHOW, DESCRIBE, or EXPLAIN. Other successful
+                mysqli_query() return true.
+              </li><li>
+                The mysqli_fetch_assoc() returns an associative array
+                on which the data can be accessed and displayed.
+              </li>
           <p>
            
           </p>
