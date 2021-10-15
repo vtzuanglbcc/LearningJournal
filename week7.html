@@ -107,347 +107,90 @@ Another question I had was why go through all this trouble hashing a password wh
 The rest of the register.php file was pretty understandable and I ended up making mistakes in the echo statements by forgetting to put the semicolon at the end of statements. For example, if the user forgot to input the first name or last name, a message would be stored in the $errors array and then a foreach loop was used to display the messages.  
           </p>
           
-          <blockquote><pre>
-              ############################################
-         </pre></blockquote>
+        
             
             <p>
-              The WHERE tells SQL which rows to return, while the column
-              name after SELECT determines which columns to return from
-              the query. Also, IS NULL means that there is not a value.
-              This is not the same as ''. '' is an empty string, while
-              IS NULL is just no value. Thus, WHERE email IS NULL and
-              WHERE email = '' are different because WHERE email IS NULL
-              means there is no value there, while WHERE email = '' is
-              that the email is an empty string.
+            We also created a file to display all the users in the database. The query to complete this was simply to SELECT the name and registration date of the users. The query used a CONCAT SQL function to concatenate the last name and first name and also the DATE_FORMAT() to present the registration date in a well formatted state. AS is used to rename the SQL column and it is used later to display the actual data in the table.
+
             
             </p>
             <blockquote><pre>
-            SELECT * FROM USER 
-            WHERE password = 'SHA2("white walker", 400)';
+		$query = "SELECT CONCAT(last_name, ', ', first_name) AS name,
+			    DATE_FORMAT(registration_date, '%M %d, %Y') AS dr
+			    FROM USERS
+			    ORDER BY registration_date ASC";
+
+		$result = mysqli_query($connection, $query);            
+
+		$num = mysqli_num_rows($result);
+
              </pre></blockquote>
             
             <p>
-              An unusual thing I noticed was that in this previous query, it
-              only worked when the quotation for "white walker" matched exactly
-              what was in the database. Thus when single quotes were used, the
-              query returned zero results. Here is an example of using BETWEEN:
-              
+             The query is then run and we get the number of results returned by mysqli_num_rows($result). This is useful because if the number of results returned is zero, then there is no need to loop through the array returned by the database. If the number of results returned is greater than zero, then a table is created to print out the results row by row.
+
             </p>
             <blockquote><pre>
-            SELECT first_name, last_name 
-            FROM USER 
-            WHERE user_id BETWEEN 5 AND 10;
+                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+        		echo '<tr><td align="left">' . $row['name'] . '</td><td align="left">' . $row['dr'] . '</td></tr>';
+    		}
+
             </pre></blockquote>
             
             <p> 
-              This returns all the first and last names from the USER table 
-              where the user id is between 5 and 10 inclusive of both 5 and 10.
-              Instead of BETWEEN, you could also use NOT BETWEEN which would give
-              values outside of 5 to 10. An interesting aspect of MySQL is that
-              TRUE equals 1 and FALSE is 0, and adding TRUE + TRUE will equal 2.
+              The last script we went over this week was to update the password of a user that has already registered. To do this, we need to have the user enter in their email and old password along with a new password and a confirm password. If the email and password do not match an entry in the database, then we cannot proceed. To check if the email and password match an entry in the database, we run a SELECT query for a user id that has an email value and password value equal to what the user entered. 
+
             </p>
+	      <blockquote><pre>
+	      	$query = "SELECT user_id FROM USERS
+          		WHERE (email='$e'  AND pass='$hash') ";
+  		</pre></blockquote>
             <p>
-              LIKE and NOT LIKE are very useful in string comparison. They can be used
-              with _ and %, with _ indicating one character and % indication 0 or more
-              characters. In these two examples, the NOT LIKE '%GMAIL%' will screen out
-              any users where their email address has gmail in it. The search is not 
-              case sensitive so 'gmail' or 'Gmail' or 'GMAIL' would all be screened
-              out. The second query would only select for users where their email
-              has 'gmail' in it.
+              Here the password is set to equal the hashed value of the password. As mentioned above , the SHA() function did not work for me so I used the hash() function instead which takes as the first parameter the string value of the hash function, and a second parameter as the string that you want to hash. If this above query matches one and only one result using mysqli_num_rows($result), then we can proceed to change the password for the user. To change the password, we make sure the new password and confirm password are the same, and then we hash it and perform an UPDATE query.
+
               
             </p>
               <blockquote><pre>
-              SELECT first_name, last_name, email_address 
-              FROM USER 
-              WHERE email_address NOT LIKE '%GMAIL%';
-              
-              SELECT first_name, last_name, email_address 
-              FROM USER 
-              WHERE email_address LIKE '%GMAIL%';
+              	$query = "UPDATE USERS
+          	SET pass='$hashnew'
+          		WHERE user_id='$row[0]' ";
+
+		$result = @mysqli_query($connection, $query);
             </pre></blockquote>
             
             <p> 
-              If you wanted to search for an underscore or % sign in a LIKE
-              statement, when you need to escape it with a backslash. If you
-              used LIKE '__', this would search for any two letters together.
-              ORDER BY lets you order the search results. ASC and DESC stand
-              for ascending order or descending order. 
+              How do we know if the update was successful? We can use the mysqli_affected_rows($connection) function which will return a value of the number of rows that were affected by the query. In this situation, we want the number of affected rows to be equal to 1. mysqli_affected_rows($connection) takes a parameter of the database connection, and will return the number of affected rows for INSERT, UPDATE, and DELETE queries. 
+
               
             </p>
             
             
-            
-            <blockquote><pre>
-            SELECT first_name, last_name 
-            FROM USER 
-            ORDER BY last_name ASC, first_name ASC;
-             </pre></blockquote>
             
             <p> 
-              This query will sort by ascending last name first, then sort
-              by ascending first name. After ordering
-              the results, you can also LIMIT results returned. You want to
-              do LIMIT last, after the results have been ordered. If you 
-              type LIMIT 10, it will result in only the first 10 results returned. 
-              If you wanted the 11th result to the 20th, then you would 
-              type LIMIT 10, 10: start from the index 10 and give 10 more
-              results. The 11th result has an index 10 similar to PHP arrays.
-              This query would give 3 results starting at the 6th result:
+              An important thing to emphasize again is the importance of using <b>mysqli_real_escape_string</b>($connection, $_POST['name']) for all user input. Again, if the user puts in single quotes or backslashes or escape sequences, mysqli_real_escape_string will deal with it appropriately and prevent a premature termination of the SQL query-- especially with the single quotation mark. For the backslashes, if you forget to use mysqli_real_escape_string(), they will simply be interpreted if they are escape sequences. So "\\" would become "\" and "\n" would become a newline. <em>Just use the mysqli_real_escape_string()!</em>
+
             </p>
             
-            <blockquote><pre>
-            SELECT first_name, last_name 
-            FROM USER ORDER BY last_name ASC, first_name ASC 
-            LIMIT 5, 3;
-            </pre></blockquote>
             
-            <p>
-              Another interesting code is that to see the last 5 people
-              who registered, sort by DESC registered_date and then limit
-              to 5 results. An important thing to remember is that the 
-              LIMIT 5, 3 means that you are starting at the sixth entry, and
-              you want 3 entries returned. This is very useful in returning
-              pages of results.
-            </p>
-            
-            <p>
-              UPDATE is useful in updating data in the table. It is important
-              to user WHERE to specify which row of  data to update and to
-              use the primary key to determine which row. Also, never
-              update the primary key, and use LIMIT 1 to only update 1 row. 
-              An example would be 
-            </p>
-              
-              <blockquote><pre>
-              UPDATE USER
-              SET email="newemail@gmail.com"
-              WHERE user_id = 5 
-              LIMIT 1;
-              </pre></blockquote>
-            
-            <p>
-              DELETE FROM is useful to delete rows. If you forget the specify
-              WHERE, then it will delete the contents of the whole table.
-              Similar to UPDATE, LIMIT 1 will limit to just deleting one
-              row. An example would be 
-            </p>
-            
-              <blockquote><pre>
-              DELETE FROM USER
-              WHERE user_id = 5 
-              LIMIT 1;
-              </pre></blockquote>
-            <p>
-              DROP TABLE USER will delete the USER table and all its data. 
-              TRUNCATE TABLE USERwill empty the USER table.
-              DROP DATABASE <dbname> will delete the whole database.
-              Functions in mySQL should not have a space between the
-              function name and opening parenthesis.
-              </p>
-              <p>
-                CONCAT() concatenates values such as CONCAT(first_name, " ",
-                last_name). Alias can help with CONCAT(). For example,
-                it can make sense to do CONCAT(first_name, " ", last_name) AS
-                full_name.
-            </p>
-            
-                <blockquote><pre>
-                SELECT CONCAT(first_name, " " , last_name) AS full_name 
-                FROM USER;
-                </pre></blockquote>
-              <p>
-                The column will be labeled full_name and list all the
-                concatenated names. This will be helpful when connecting
-                mySQL to PHP to work with full_name instead of a 
-                CONCAT(...) which may have various punctuation within the
-                function. Aliases are case sensitive strings. In mySQL,
-                use the alias in the rest of the query-- for example in
-                WHERE full_name = "Peter Parker" and ORDER BY full_name. 
-                LENGTH() function will determine the length of a string.
-            
-            </p>
-            <blockquote><pre>
-                  SELECT LENGTH(last_name) AS L, last_name 
-                  FROM USER 
-                  ORDER BY L DESC 
-                  LIMIT 1;
-                  </pre></blockquote>
-            <p>
-              This query orders the length of the last name by
-              longest first and displays only the longest last name
-              from the USER table. CONCAT_WS() is very useful in that
-              it will concat with the first parameter being the 
-              separator. SELECT CONCAT_WS(" ", first_name, middle_name, last_name) AS Name
-              FROM USER will concatenate the non-null values. So you could
-              have "Luke Skywalker" or "Luke John Skywalker". The " " is the
-              separator.
-            </p>
-            <p>
-              Some math functions include CEILING(num), FLOOR(num), FORMAT(number, <number of decimal places>),
-              MOD(num1, num2) which calculates the remainder, RAND() which is a 
-              random number from 0 to 1.0, ROUND(num1, num2) which rounds num1 to
-              num2 decimal places, and SQRT(num). Interestingly, RAND() can
-              return queries in a random order. Example: SELECT * FROM USER ORDER
-              BY RAND(). FORMAT() and CONCAT() can be used together for 
-              dollar values. For example, FORMAT(3000.4, 2) will result in
-              3,000.40, and CONCAT('$', FORMAT(3000.4, 2) will result in 
-            $3000.40. So CONCAT() with FORMAT() can turn numbers into 
-              currency numbers.
-              </p>
-              
-              <p>
-                There are numerous useful Date and Time functions. Date(datetime)
-                will return the date value such as 2021-10-07. HOUR(datetime) 
-                will return 22 for 10PM. MINUTE(datetime) could return 47. 
-                DAYOFMONTH(datetime) could return 7. MONTHNAME(datetime) can
-                return October while MONTH(datetime) returns 10 for October.
-                NOW() returns the current date and time while CURDATE() is the 
-                current date and CURTIME() is the current time.
-            </p>
-            <p> 
-              DATE_FORMAT() is a very useful function for display a particular
-              date in a various number of different formats.
-              For example, SELECT DATE_FORMAT(NOW(), '%W, %M %D at %l %p')
-              will result in displaying the current date and time in this
-              format: Thursday, October 7th at 6 PM. The first parameter
-              of DATE_FORMAT is the datetime, and the second parameter
-              is a string that is the formatting you want to display.
-              
-              
-            </p>
-            <p>
-              Interestingly, to see what the time or date is on the client's
-              computer, you need to use JavaScript and not PHP or MySQL.
-            </p>
           <p class="supplemental">
            Supplemental Learning
           </p>
+          
           <p>
-           This week, we also connected PHP to the mySQL database. I thought it would
-            be important to review the steps for future reference. 
-          </p>
-            
-            
-            <ul>
-              <li>
-                In VSCode, go to View -> Extensions and download SFTP
-              </li>
-              <li>
-                In VSCode, within an Opened Folder, go to View -> Command Palette and type SFTP.
-                An SFTP JSON file will appear in your Folder. Then, fill in the JSON file. 
-                
-       
-          <blockquote><pre>
-       
-            "name": "arbitrary folder name",
-            "host": "Put your FTP Server here",
-            "protocol": "ftp",
-            "port": 21,
-            "username": "Put FTP username",
-            "password": "Put cPanel login info",
-            "remotePath": "/public_html",
-            "uploadOnSave": true
-          </pre></blockquote>
-          </li>
-          <li>
-          This sftp.json file stays local on your computer. Now create another file
-          called db.php which actually is uploaded to the server and used on the 
-          server to connect to the database. In db.php, include this:
-          <blockquote><pre>
-          
-          &lt;?php
-          
-          $host = "127.0.0.1";
-          $user = "your database username found in mySQL Databases";
-          $pass = "your database password created when adding mySQL user";
-          $db = "the name of the exact database you created that you want to access";
-          $port = 3306;
-            
-          // this step makes the connection to the database using <a href="https://www.php.net/manual/en/mysqli.construct.php">mysqli_connect</a>
-          $connection = mysqli_connect($host, $user, $pass, $db, $port);
-          
-          if (mysqli_connect_errno()) {
-            die("DB connection failed: " . mysqli_connect_error() . " (" .
-              mysqli_connect_errno() . ")" 
-              );
-          } else {
-            echo "DB connection successful.";
-          }
-          ?&gt;
-          </pre></blockquote>
-              </li>
-              <li>
-                The above db.php is then uploaded by FTP to your 
-                server by right clicking on it and clicking upload. 
-                I made the mistake of having this file or other files
-                within the .vscode subfolder at the same level as sftp.json.
-                Don't do this! It does not work. Instead, the db.php
-                and other files in you folder should be immediately
-                within the Folder you created for uploading to the FTP.
-              </li>
-              <li>
-                Once db.php is uploaded, simply go to your URL and 
-                append the URL with db.php. It should show a message
-                whether you connected succesfully to the database or 
-                not. When it works, that db.php file can be require()
-                by any other file that needs that same database connection.
-     
-          <blockquote><pre>
-              &lt;?php
-                require('db.php');
-              ?&gt;
-          </pre></blockquote>
-                
-              </li>
-              <li>
-                To create a database query, type the query as a string
-                and save it to a variable $query. Then use the mysqli_query()
-                to pass the $connection previously created in db.php 
-                and $query.
-          
-          <blockquote><pre>
-                $query = "SELECT * FROM USER";
-                $result = mysqli_query($connection, $query);
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "$row['user_id'] . " " . $row['first_name']";
-                }
-          
-          </pre></blockquote>
-              </li>
-              <li>
-                mysqli_query() performs a query, and returns either false
-                or a mysqli_result object if it is a sucessful query
-                using SELECT, SHOW, DESCRIBE, or EXPLAIN. Other successful
-                mysqli_query() return true.
-              </li><li>
-                The mysqli_fetch_assoc() returns an associative array
-                on which the data can be accessed and displayed.
-              </li>
-            </ul>
-            <h4>Additional references</h4>
-            <ul>
-              <li><a href="https://www.php.net/manual/en/mysqli.query.php">mysqli_query()</a>: Performs query on database and </li>
-              <li><a href="https://www.php.net/manual/en/mysqli-result.fetch-assoc.php">mysqli_fetch_assoc()</a>: Fethes row as associative array</li>
-              <li><a href="https://www.php.net/manual/en/mysqli.construct.php">mysqli_connect()</a>: Opens new connection to mySQL server</li>
-              <li><a href="https://www.php.net/manual/en/mysqli.connect-error.php">mysqli_connect_error()</a>: Returns description of last connection error</li>
-              <li><a href="https://www.php.net/manual/en/mysqli.connect-errno.php">mysqli_connect_errno()
-</a>: Returns error code from last connect call</li>
-              
-                
-                
-            
-              
-            </ul>
-       
-          
+		  This week, I worked on the <a href="https://tzuang.webdevstudent.me/add_depts.php">Add Departments Website</a> and wanted to add some JavaScript into the file.
+		  I did supplemental learning on addEventListener("click", () => {}) functions to add interactivity to the website such that when the user clicks on the AutoFill
+		  button, the website will automatically fill in values for the fields. I used Math.random() extensively to do this, and multiplied Random.math() by the length of the array
+		  that that held some sample Department names. Then Math.floor() was used to create an integer index for that array. I did the same for the background color. One thing
+		  I noticed about embedding JavaScript in PHP is oftentimes, the browser will not fetch a new version of JavaScript if it is linked to an outside file. Thus, for the
+		  background color changer to work, I needed to simply type in the JavaScript within the &lt;script&gt; tag directly on that PHP page.
+	      </p>
           
           
       </article>
     </main>
     <hr>
     <footer>
-      Last updated 10/7/2021        
+      Last updated 10/15/2021        
     </footer>
   </body>
 </html>
