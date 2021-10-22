@@ -1,1 +1,335 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Week 8</title>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Victor's Learning Journal at LBCC PHP/MySQL</h1>
+    <nav>
+        <a href="index.html">Table of Contents</a>&nbsp;|&nbsp;
+        <a href="week7.html">Go to Week 7</a> |&nbsp;
+	<!-- <a href="week8.html">Go to Week 8</a> |&nbsp; -->
+        <a href="https://tzuang.webdevstudent.me/add_depts.php">Add Departments Website with Sorting/Pagination</a>
+    </nav>
+    <main>
+      
+
+      <article>
+        <h3>Week 8</h3>
+        <p>
+          <time datetime="2021-10-22">October 22 2021</time>
+        </p>
+
+        
+        
+<p>This week was another very exciting week learning PHP. We went through 3 different techniques working with PHP and mySQL forms and pages-- editing entries, paginating results, and sorting entries. 
+        </p>
+<p>The first was editing entries. This is probably the first time we are using the $_GET global variable extensively. This is because when we edit a user entry, we have the user click on the user id, which is the primary key, and that link that they click on is appended with ?id=10 where 10 would the the user id. Thus, in this code:
+        </p>
+        
+        <blockquote><pre>
+                if( (isset($_GET['id'])) && (is_numeric($_GET['id])) ) {
+                  $id = $_GET['id'];
+                } elseif ( (isset($_POST['id'])) && (is_numeric($_POST['id'])) ) {
+                  $id = $_POST['id'];
+                } else {
+                  // message indicated this page accessed in error
+                  exit();
+                }
+</pre></blockquote>
+        <p>
+the if statement first checks if the id has been passed with the GET method, and it if has, then $id is set to this value. The elseif statement checks if the id has been passed with the POST method, and if it has, the $id is set to this value. The POST occurs when this edit page is submitted upon itself to edit the page. Meanwhile, if neither the id has been submitted by GET or POST, then this page was been reached in error. 
+        </p> <p>
+The scripts then display a form with the fields for the user to edit and to submit again using the POST method. Upon entry by the user, the form fields are all validated to make sure they are not empty:
+      </p>
+<blockquote><pre>
+                if (empty($_POST['last_name'])) {
+                  $errors[] = 'You forgot to enter in last name.';
+                } else {
+                  $last_name = mysqli_real_escape_string($connection, trim($_POST['last_name]));
+                }
+</pre></blockquote>
+         <p>
+If the $errors array has any messages in it, then they are displayed to the user and the database query to update or edit results is not completed. Notice the important use of mysqli_real_escape_string() for all user input fields. This prevents backslashes or single quotation marks from causing errors in the database query.
+ </p> <p>
+The query has a very interesting attribute that I had to think a while about to understand. Here is the query:
+ </p> 
+
+<blockquote><pre>
+                if (empty($errors)) {
+                  $query = “SELECT user_id FROM USERS
+                      WHERE email='$email'
+                      AND user_id != '$id';”
+                  $result = @mysqli_query($connection, $query);
+                  if (mysqli_num_rows($result) == 0 {
+                    //  code to edit that entry	
+                  }
+                }
+</pre></blockquote>
+         <p>
+The line that says AND user_id != $id was had be thinking about what it meant. So basically, we want to edit the user entry, and we want to edit the entry that has that given $email. However, we don't want another another user id to be equal to our given id with also the same email. 
+ </p> <p>
+So in other words, let say there are two users with the same email, and they have different primary key id's. Then, for this query, the result of the query will have one result for mysqli_num_rows($result), and the if statement if (mysqli_num_rows($result) == 0) will be false and that code in braces that is not shown will not be executed. 
+ </p> <p>
+If, however, there is only one person with the email greenpomegranate@uniquemail dotcom, then there is only one user id associated with that email, and the database query will return zero results because it is looking for rows with the same email but different id. So (mysqli_num_rows($result) == 0) will evaluate to true, and then we can execute that code which edits only that row with the unique email address – user id combination. 
+ </p> <p>
+The author sums it up very succinctly-- basically, we want to check to make sure that the email address isn't being used by anyone else, and it it returns zero records, then it is safe to UPDATE that user with that email address because we know it is only used by one user.
+ </p> <p>
+The UPDATE query is like this:
+Note that single quotes around the $id are not necessary for SQL because it is numeric, although I noticed that including them does not cause crash the query.
+ </p> 
+
+<blockquote><pre>
+                $query = “UPDATE USERS
+                    SET 	first_name='$first_name',
+                      last_name='$last_name',
+                      email='$email'
+                    WHERE user_id=$id 
+                    LIMIT 1”;
+                $result = @mysqli_query($connection, $query);
+
+                if (mysqli_affected_rows($connection) == 1) {
+                  // output successful edit of user entry
+                } elseif (mysqli_affected_rows($connection) == 0){
+                  // no user entries changed	
+                } else {
+                  // not successful in changing entries
+                }
+</pre></blockquote>
+         <p>
+The UPDATE query is run, and if the mysqli_affected_rows($connection) is 1, then that means one row was changed. If it is 0, the query was successful but all rows were left unchanged. But if it is neither 1 or 0, then the UPDATE did not run correctly.
+ </p> <p>
+To retrieve the information that is used to create the form that the user can edit and submit changes, we also need to run a query for the user that had the $id from that initial $_GET or $_POST value. That every is as follows:
+ </p> 
+<blockquote><pre>
+                $query = “SELECT first_name, last_name, email 
+                    FROM USERS
+                    WHERE user_id=$id”;
+                $result = @mysqli_query($connection, $query) ; 
+                if (mysqli_num_rows($result) == 1) {
+                  $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                }
+</pre></blockquote>
+        
+         <p>
+The book uses MYSQLI_NUM instead of MYSQLI_ASSOC. Both can work. The MYSQLI_NUM version lets you access each row by number index such as $row[0], while the MYSQLI_ASSOC allows fetching by $row['first_name']. 
+ </p> <p>
+Finally, the form has a hidden field:
+ </p> 
+
+<blockquote><pre>
+                echo ' &lt;form action = “edit_user.php” method = “POST” &gt; ';
+                echo ' &lt; input type= “hidden” name = “id”  value= ';
+                echo  $id;
+                echo ' &gt;';
+                echo '&lt;/form&gt;';
+	</pre></blockquote>
+         <p>
+I split up the echo into three lines because it can be really tricky with the syntax. But the main point is that the $id is echoed as the value for the name of “id”, and it is type “hidden” so there isn't a text box showing up for the user the change. The utility of this is that the form is submitted with POST values for the id so we can use $_POST['id'] at the very beginning of this page and retrieve the user id for database queries to UPDATE the entry or SELECT the user's data.
+ </p> <p>
+
+The next topic we covered was pagination. To start, we need to set $display to the number of results to show per page. For example, $display = 10. Then, we need to determine if the number of pages has been determined:
+ </p> 
+
+<blockquote><pre>
+                if (isset($_GET['p']) && is_numeric($_GET['p'])) {
+                  $pages = $_GET['p'];
+                } 
+</pre></blockquote>
+        
+          <p>
+I noticed that this can be manipulated to unusual results. For example, the user can put a ?p=10 in the URL and the page will list choices to click from page 1 to 10. While this doesn't effect the database, it is not ideal either. 
+ </p> <p>
+So if p is set as a GET variable, then the value is set to $pages. If it is not, then a query to the database allows us to COUNT how many user id's there are and return it as a $row[0] with $row = @mysqli_fetch_array($result, MYSQLI_NUM). 
+ </p>
+
+<blockquote><pre>
+		            $query = “SELECT COUNT(user_id) FORM USERS”;
+</pre></blockquote>
+        
+         <p>
+The book introduces the ternary operator. The book uses it to change the background color of alternating rows. I didn't utilize it because I wanted to just have the selected row be changed to a different color using CSS instead of changing styles inline in PHP and HTML. It was just simpler for me to not mix in CSS, PHP, and HTML all in the same area! However, the ternary operator was very interesting to learn. If the condition is TRUE, then the first value is returned; otherwise the second value is returned.
+ </p> 
+
+<blockquote><pre>
+		            echo (isset($var)) ? 'It is set' : 'It is not set';
+</pre></blockquote>
+         <p>
+This will echo “It is set” if the isset() evaluates to true.
+ </p> <p>
+To paginate, we need to run a database query using LIMIT x,y. The x is which entry to start at, and the y is how many entries to display.
+ </p> 
+
+<blockquote><pre>
+                $query = “SELECT first_name, last_name, registration_date
+                    FROM USERS
+                    ORDER BY registration_date
+                    LIMIT $start, $display”;
+                $result = mysqli_query($connection, $query);
+</pre></blockquote>
+         <p>
+How do you know what $start and $display are? The $display is a variable that the programmer sets: $display = 10. Eventually, there may be functionality where the user can selected different $display values such as 20 or 50 or 100. The $start is determined by 's' if it exists or 0 otherwise:
+ </p> 
+
+<blockquote><pre>
+                if(isset($_GET['s']) && is_numeric($_GET['s'])) {
+                  $start = $_GET['s'];
+                } else {
+                  $start = 0;
+                }
+                
+		</pre></blockquote>
+         <p>
+Since $display is set to 10 and $start starts at 0 and we set s to equal $start + $display for every next page, the s changes from 0, to 10, 20, 30 etc. The first page shows 0-9, second page 10-19, third page 20-29, etc.
+ </p> <p>
+Then the HTML table needs to be created. After the HTML table, we create the links to other pages if $pages is greater than 1:
+ </p> 
+
+<blockquote><pre>
+                if($pages > 1) {
+                  echo “<br><p>”;
+                }
+</pre></blockquote>
+        
+          <p>
+We need to determine the current page the user is on so we don't create a link to the current page:
+ </p> 
+
+<blockquote><pre>
+		            $current_page = ($start/$display) + 1;
+</pre></blockquote>
+        
+         <p>
+If we are on the first page, $start = 0, $display = 10, and $current_page = 1. 
+            </p> <p>
+If we are on the second page, $start = 10, $display = 10, $current_page = 2.
+ </p> <p>
+If the $current_page is not 1, we create a “Previous” link. The link will be echo'ed with these values:
+ </p> 
+
+<blockquote><pre>
+		            $lt; a href = “view_users.php?s=' . ($start - $display) . '&p=' . $pages . '” &gt;
+</pre></blockquote>
+         <p>
+Since this is not done if the $current_page is 1, we won't get a strange value of s of -10 since in that case $start would already be 0. The effect of the Previous button is just to decrement the s value by $display which is 10 in our example.
+ </p> <p>
+To make the numeric links, a for loop is used. If the $i is not equal to the current page number, then we make it a link. Otherwise, we just echo the value of the current page. Recall that $current_page was calculated by ($start/$display) + 1.
+ </p> 
+
+<blockquote><pre>
+                for ($i = 1; $i <= $pages; $i++) {
+                  if ($i != $current_page) {
+                    // echo a link 
+                    // with href = “view_users.php?s=___&p=___”
+                    // s is set to equal $display * ($i – 1)
+                    // p is set to equal $pages
+                    // text between opening and closing a tags is $i
+                  } else {
+                    echo $i . ' ';
+                  }
+                }  
+</pre></blockquote>
+  
+   <p>
+This above code creates a link with numbers starting from 1 and up to and including the number of $pages. The link is created by setting s equal to $display multiplied to $i – 1, so the s value is 0, 10, 20, 30, etc. Meanwhile, the $pages is the value determined from the $_GET['p'] or is calculated by getting the COUNT from the database and then dividing by $display and wrapping it in ceil(). 
+ </p> <p>
+To create the Next link, we set s to equal to $display + $start and p is still $pages. This works because when we click on Next, it is dependent on which page we are currently on. For each page we are on, we have a different s value. Page 1 has s = 0, page 2 has s = 10, page 3 has s = 20.
+ </p> <p>
+So if we are one page 3, then $start is currently 20, and adding $display (10) to 20 would be 30. So the Next s would be 30. But if we are on page 2, then s is 10, and 10 + 10 = 20 for the new s for that hyperlink.
+ </p> <p>
+Also, if $current_page is equal to the total number of pages $pages, then don't display Next. Alternatively, just display Next when $current_page != $pages.
+ </p> <p>
+Lastly, we also learned how to make sortable links. This utilizes the ORDER BY in SQL.
+ </p> <p>
+We start by creating the $sort variable:
+ </p>
+      
+      <blockquote><pre>
+		            $sort = (isset($_GET['sort'])) ? $_GET['sort'] : 'id';
+      </pre></blockquote>
+ <p>
+Here, if 'sort' is set, then it is returned as the value of $sort. Otherwise, $sort is set to 'id'.
+ </p> <p>
+Then, a switch statement is used to prevent the user from entering invalid database code:
+ </p> 
+      
+      <blockquote><pre>
+                switch ($sort) {
+                  case 'id':
+                    $order_by = 'user_id ASC';
+                    break;
+                  case 'fn':
+                    $order_by = 'first_name ASC';
+                    break;
+                  default:
+                    $order_by = 'user_id ASC';
+                    $sort = 'id';
+                    break;
+                }
+      </pre></blockquote>
+ <p>
+The table header needs to be modified so that clicking on the header will cause the sort value to be set:
+ </p> 
+      
+      <blockquote><pre>
+		            &lt; a href= “view_users.php?sort=fn” &gt;
+</pre></blockquote>
+ <p>
+Then, the $order_by is passed into the SQL query:
+ </p> 
+      
+      <blockquote><pre>
+                $query = “SELECT first_name, last_name, user_id
+                    FROM USER
+                    ORDER BY $order_by
+                    LIMIT $start, $display”;
+      </pre></blockquote>
+  <p>
+The Previous, Numbered Pages Links, and the Next links also all need to be updated with sort name-value pair and have the $sort name set to $sort. This is representative code for the numbered links pages:
+ </p> 
+      
+      <blockquote><pre>
+                echo '
+                &lt; a href= “view_users.php?s=' . (($display * ($i – 1))) . 
+                  '&p=' . $pages .
+                  '&sort=' . $sort .
+                '” &gt;
+                ';
+        
+       </pre></blockquote> 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          <p class="supplemental">
+           Supplemental Learning
+          </p>
+          
+
+          
+          
+      </article>
+    </main>
+    <hr>
+    <footer>
+      Last updated 10/22/2021        
+    </footer>
+  </body>
+</html>
 
