@@ -320,8 +320,32 @@ The Previous, Numbered Pages Links, and the Next links also all need to be updat
           <p class="supplemental">
            Supplemental Learning
           </p>
-          
+          <p>
+		This week, I went through the tutorial about how to <a href="https://reactjs.org/docs/add-react-to-a-website.html">Add React to a Website</a> 
+		  and adding <a href="https://reactjs.org/docs/hello-world.html">Hello World</a> to a website. It was very interesting to learn about React
+		  and JSX. In order to add React to a website, you need to include the CDN script tags for React. In addition, I also navigated in
+		  terminal to my project folder, and then installed npm and babel. Then, I made a subfolder called src to put JS scripts in, and then from
+		  the project folder, I ran this command:
+	</p>
 
+	      <blockquote><pre>
+           	npx babel --watch src --out-dir . --presets react-app/prod
+       </pre></blockquote> 
+	<p> 
+		This command watches for JS files you type in the src folder and immediately produces a JS file in the project folder that 
+		translates JSX into JavaScript. In your HTML file, the src for the JS files should point to the JS files that Babel produces. 
+		In my case, the processed JS files are in the same folder as the index.html file. What is interesting about JSX is that
+		you can integrate tags like those found in HTML into the JavaScript code. For example, this code uses JSX and JavaScript
+		and will produce a clickable LikeButton and a H1 that says "Hello, World!".
+	</p>
+	<blockquote><pre>
+		let domContainer = document.querySelector("#like_button_container");
+		ReactDOM.render(<LikeButton />, domContainer);
+		ReactDOM.render(
+		    <h1>Hello, World!</h1>,
+		    document.getElementById('root')
+		);
+         </pre></blockquote> 
           
           
       </article>
