@@ -23,65 +23,95 @@
 
        
  <p>
-        This week was a great learning experience with sending email and uploading files with PHP.  I was surprised how easy it was to send an email using PHP. Email is sent simply using the mail() function, with the parameters to, subject, and body. The to is an email address to send the email to. The subject is the email's subject line, and the body is the text of the email. An example of this is as follows:
+     This week, we focused on learning cookies and sessions. Since the web is stateless, cookies and sessions are useful in creating state so that when a user logs in, we know that that user is logged in and can display data that is specific to that user. When the user logs out, then that data cannot be displayed. Cookies are stored on the browser while sessions are on the server. 
+ </p><p>
+The general idea of cookies and sessions is as follows. The user goes to a login page and enters in their information such as email and password. Then, if the form is complete, the data is sent to the database. If the email and password match one and only one row, then that is a good match. When that occurs, the user is logged in and the cookie is set or the session started. If the email and password are not a match or match more than one row, then there is a problem and the user is not logged in. In the latter case, the user can be redirected back to the login page. We also added a logout page, where the cookies or session data is  cleared. 
+ </p><p>
+Two functions were created this week to assist with the process of logging in. The first function was to redirect the user to a particular website. This function can take one argument which is the page to be redirected to. The default website it redirects to is index.php.
 </p><blockquote><pre>
-                  $to = 'webdevstudent@emailstudent.co';
-                  $subject = 'Thanks for Registering';
-                  $body = 'Hello Student. Thank you for registering. This email confirms your registration';
-                  $body = wordwrap($body, 75);
 
-                  mail($to, $subject, $body);
- </pre></blockquote><p>
-The wordwrap() function will wrap lines when the line exceeds a specified number of characters. In the example above, the contents of $body will be wrapped to a new line with a newline when the line exceeds 75 characters. According to the textbook, the mail() function does not send email, but actually tells the mail server to send the email. Because of this, there must be a functioning mail server for this to successfully work. You can also add another parameter to mail() which is for additional headers. Additional headers could be From, Bcc, Reply-To and if you choose to use multiple, just separate them with \r\n.
- </p><p>
-The textbook delves into a very useful PHP function called phpinfo() which displays all the PHP information from the server. It provides a wealth of information about the PHP settings and can be helpful to determine and adjust settings for file upload and other features. For example, file_uploads should be turned On and other settings include upload_max_filesize and post_max_size. The php.ini file can be used to adjust the settings. However, since I am using a hosted server, I do not believe I can make changes to the php.ini file. 
- </p><p>
-To upload files with PHP, we need to code for a form with HTML and set its enctype to “multipart/form-data” along with a action and method. There is also an input with type “hidden” and name with “MAX_FILE_SIZE” with value of “1000000” for 1MB. Lastly, we have an input of type file and a name so that we can access the file with $_FILES variables. The enctype is mandatory for file uploads. The enctype is in the from tag and allows to form to handle many types of data such as files. The “MAX_FILE_SIZE”  is in bytes and needs to be before the file input. Lastly, the input with type file makes the button to upload a file.
-</p><blockquote><pre>
-                  &lt;form enctype= “multipart/form=data”  action= “register.php” method= “POST”&gt;
-                  &lt;input type= “hidden” name= “MAX_FILE_SIZE” value= “1000000”&gt;
-                  Upload File &lt;input type= “file” name= “upload”&gt;
-</pre></blockquote> <p>
-$_FILES superglobal variable is an array of values very useful for working with the uploaded file. If the value of the name in the input tag is 'upload', then $_FILES['upload'] refers to this uploaded file. To access the elements of this array, you can use $_FILES['upload']['name'], $_FILES['upload']['type'], $FILES['upload']['size'], $FILES['upload']['tmp_name'], and $FILES['upload']['error']. 'name' is the file's original name while 'tmp_name' is its temporary name on the server. 'error' are error codes of the uploaded file while 'size' is the the size in bytes of the file and 'type' is the file type such as image/jpeg, image/png, or text/javascript. Here is a list of <a href= "https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types">MIME</a> types.
- </p><p>
-After the file is received by the PHP, you need to use the move_uploaded_file() function to move it to a  folder from its temporary location. The two parameters of move_uploaded_file() are the temporary file name and the path to the folder you want to move the file to. Thus, it would look like this:
-</p><blockquote><pre>
-		               move_uploaded_file($_FILES['upload']['tmp_name'], “uploadsfolder/{$_FILES['upload']['name']}”);
-</pre></blockquote>
- <p>
-The textbook notes that it is important to check that the file was successfully moved, so you want to wrap it in an if-statement.
-</p><blockquote><pre>
-		              if(move_uploaded_file($_FILES['upload']['tmp_name'], “uploadsfolder/{$_FILES['upload']['name']}”);
- </pre></blockquote><p>
-Here, the file is moved to the uploadsfolder which is at the same level as the PHP file the user is at, and the file is moved to the uploadsfolder and saved with the same filename as it was when uploaded by the user. The textbook says it is better to save the file with a different filename but this would require using a database to save both the old and new name. I was wondering why you would need to save both names, because if the names are saved the same in the database and in the filesystem, I would think that is enough for the database to retrieve that named file on the filesystem. Perhaps it would be useful to have the old file name to be aware if the user is uploading the same file and prevent overwriting of the same file, although I am not completely certain.
- </p><p>
-The book goes over the error codes for $_FILES['upload']['error'], with 'upload' again being the value of the name input tag with type as file. The error codes are 1, 2, 3, 4, 6, 7, 8. Zero means there was no error in uploading the file. A switch statement is very useful in dealing with the error codes:
-</p><blockquote><pre>
-                switch ($_FILES['upload']['error']) {
-                  case 1:
-                    echo 'File exceeds upload_max_filesize in php.ini';
-                    break;
-                  case 2:
-                    echo 'File exceeds MAX_FILE_SIZE in HTML form';
-                    break;
-                  …
+		function  redirect_user($page = 'index.php')  {
+			
+			$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+			
+			$url = rtrim($url, '/\\');
+			$url .= '/' . $page;
 
-                  default:
-                    echo 'Default error in uploading file';
-                    break;
-                }
- </pre></blockquote><p>
-The break; is needed to prevent fallthrough in PHP. 
-</p> <p>
-Another important function is is_uploaded_file(). I was reading on the PHP manual that this is important to ward off malicious users. is_uploaded_file() takes the parameter of the temporary file name, and returns true if the is indeed an uploaded file.
-</p><blockquote><pre>
-                  if ( is_uploaded_file($_FILES['upload']['tmp_name']) ) {
-                    echo $_FILES['upload']['name'] . ' was uploaded';
-                  } else {
-                    echo 'Caution: File not uploaded';
-                  }
+			header(“Location: $url”);
+			exit();
 
-</pre></blockquote>
+		}
+</pre></blockquote><p>
+The code above creates an url with the http host and the directory name of the current website location. The dirname() truncates off the name of the current page. Then the rtrim() trims off both any backslashes or forward slashes from the right side of the url. Then, a backslash is added and the page name is added. The header() function then redirects the user to the absolute url that was created. Then the script is quit with the exit() function. 
+ </p><p>
+The second function we created checks to make sure the user entered in a valid email and password combination to login. 
+</p><blockquote><pre>
+
+		function check_login($connection, $email = '', $pass = '') 
+</pre></blockquote><p>
+Within this function, we check to make sure $email and $pass are not empty, and if they are not empty, we save the $email as $email = mysqli_real_escape_string($connection, trim($email)). The same is done with the password, such that $password = mysqli_real_escape_string($connection, trim($password));. Then, if there are no errors such as missing email or password, the query is created. The query created in this instance is “SELECT user_id, first_name FROM USERS WHERE email='$email' and password='$pass';. The $pass variable here is $pass = hash('sha512', $pass) and the result of the query is $result = @mysli_query($connection, $query). We then check to make sure that only one and only one row was returned. This is done by 
+</p><blockquote><pre>
+	      
+		if(mysqli_num_rows($result) == 1) {
+			$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+			return[true, $row];
+		}
+</pre></blockquote><p>
+The one row is then returned as the second element of an array; the first element being true in that the query was successful. The $row can then be accessed for the user_id and first_name from the database. In our case, the list() function is used to store the returned values in separate variables. 
+ </p><p>
+The book notes that it is important to make sure that cookies are sent from the server to the client before any other information. If the server tries to send the cookie after the browser has already gotten HTML, then a “headers already sent” error occurs. 
+ </p><p>
+The return value of the check_login() function is stored in two variables as such: list($check, $data) = check_login($connection, $_POST['email'], $_POST['pass']. Now, the $data array variable contains the row returned from the database and can be used to set cookie values.
+ </p><p>
+To set a cookie's value use setcookie('user_id', $data['user_id']). Now, the value of $_COOKIE['user_id'] can be accessed. The isset() function can be used to check if the value of the cookie is set. The setcookie() function actually has more parameters:
+</p><blockquote><pre>
+
+		setcookie(name, value, expiration, path, host, secure, httponly);
+		
+</pre></blockquote><p>
+If expiration is set to time()+3600, that means the cookie expires in 60 minutes. Path can be set to '/' and host to ''. To delete a cookie, you can do setcookie('first_name', '', time()-3600, '/', '', 0, 0);.
+ </p><p>
+Switching to sessions, we learned that to start a session, you use the function session_start(). Like cookies, sessions need to be started before any data goes to the browser. When you start a session, a cookie with name PHPSESSID and a hex value is stored on the browser. After the session starts, you can set values by using $_SESSION['first_name'] = $data['first_name']. 
+ </p><p>
+The book emphasizes how each script must first enable sessions with session_start(). This gives the script access to the session so it can read the session variables such as $_SESSION['first_name']. 
+ </p><p>
+The book also showed an interesting technique to change the page navigation links based on whether the user is logged into a session. By using if(isset($_SESSION['user_id'])), if the user has the SESSION variable for user_id set, then we can show a Logout link. Otherwise, we show a Login link.
+ </p><p>
+To remove session data such as when the user logouts, we use 
+</p><blockquote><pre>
+
+		$_SESSION = []; 	//to clear the variables  
+		session_destroy(); 	// to stop the session
+		setcookie('PHPSESSID', '', time()-3600, '/', '', 0, 0); 		//delete session cookie 
+
+</pre></blockquote><p>
+All these three steps are needed. So you need to clear the session variables, stop the session, and delete the session cookie on the user's browser.
+ </p><p>
+The book warns us to not set $_SESSION to NULL and to not use unset($_SESSION). This can cause server problems. 
+ </p><p>
+For improving security of sessions, we create the following SESSION variable:
+</p><blockquote><pre>
+	      
+		$_SESSION['agent'] = sha1($_SERVER['HTTP_USER_AGENT']);
+
+</pre></blockquote><p>
+Then, for pages where the user must be logged into a session, we can check whether the $_SESSION['agent'] is set and whether this session agent value is equal to that other pages' sha1($_SERVER['HTTP_USER_AGENT']). This prevents another user from accessing the session if they are using a different browser or operating system. 
+ </p><p>
+The book also talks about session_regenerate_id() which provides a new session ID when a user logs in. 
+	 </p>    
+	     
+	      
+	      
+	      
+	      
+	      
+	      
+	      
+	      
+	      
+	      
+	      
+	      
 <p class="supplemental">
            Supplemental Learning
           </p>
