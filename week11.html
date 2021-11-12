@@ -1,1 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Week 11</title>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Victor's Learning Journal at LBCC PHP/MySQL</h1>
+    <nav>
+        <a href="index.html">Table of Contents</a>&nbsp;|&nbsp;
+        <a href="week10.html">Go to Week 10</a> |&nbsp;
+	<!-- <a href="week8.html">Go to Week 8</a> |&nbsp; -->
+        <a href="https://tzuang.webdevstudent.me/hw7/login.php">Login - Cheese Fan Club</a>
+    </nav>
+    <main>
+      
 
+      <article>
+        <h3>Week 11</h3>
+        <p>
+          <time datetime="2021-11-12">November 12 2021</time>
+        </p>
+
+       <p>
+ This week, I went over code in the textbook about uploading files and making sure they are the correct type. The form submits onto itself and first checks whether the file upload is set and that the file exists: if (isset($_FILES['upload']) && file_exists($_FILES['upload']['tmp_name])). Then, if this is true, we create a finfo instance by $fileinfo = finfo_open(FILEINFO_MIME_TYPE) and then check by using if (finfo_file($fileinfo, $_FILES['upload']['tmp_name']) == 'text/rtf'). If this is true, then the file is the RTF format that we were looking for. Otherwise, it is not. In our code, we end up deleting the file by unlink($_FILES['upload']['tmp_name']) but in reality we would move the file over into the filesystem. Outside the PHP tags, we have the HTML form with attribute enctype= “multipart/form-data” . The action is set to the same page as the form submits to itself and method = “post”. Within the form, there is also a hidden input type with name = “MAX_FILE_SIZE” and value = “524288”, although we actually don't use this max file size in the PHP code to check that the file is indeed smaller than this size. I was reading online and it seems that the HTML does check for max file size, but you should still check it on the server end with the PHP code, probably using the filesize() function.
+        </p><p>
+The functions htmlspecialchars(), htmlentities(), and strip_tags() are important in making sure user input does not cause problems with the website. For example, htmlspecialchars() takes < and turns it into an ampersand with lt and a semicolon. This basically inactivates what could be problematic input what can become code. 
+   </p><p>
+The book introduces the filter_var function which can be helpful in sanitizing user input. The ternary operator is also used, so that if the  isset() is false, the variable is set to NULL. For example, $price = (isset($_POST['price'])) ? filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION) : NULL. Here, the price inputted is sanitized to make sure it is a float and to allow decimal point values. 
+   </p><p>
+Last week, I read about how to keep SQL safe from code that can cause problems with the database. This includes using typecasting, the Filter extension, and also mysqli_real_escape_string(). 
+   </p><p>
+To store passwords, they can either be in plain text which is not advisable, or encrypted, or hashed. Encrypted passwords can be decrypted, while hashed cannot be decrypted and represents data. Ideally, passwords will be saved in hashed format. To prevent brute force attempts to figure out passwords, users should use long passwords with combinations of symbols, numbers and letters. Also, limit incorrect logins at an IP address or use the sleep() function to create a delay. When you hash, you can hash in the PHP code or in the database. For our programs, we have been hashing in the PHP code.
+   </p><p>
+Other tips the book offers include not using the file names the user provides for file uploads. Also, don't save the user ID in a cookie because that user ID could be a primary key, and if that cookie value is changed to another user ID, access to other users could occur. This would be a security problem. Also, do not store anything that would be damaging if stolen.
+   </p><p>
+The book introduces password_hash() function. This is used by creating the $hash = password_hash($password, PASSWORD_DEFAULT);. Then password_verify() checks that the entered password is the same as the hashed password: if (password_verify($password, $hash)). This allows for hashing using PHP rather than mySQL.  
+   </p><p class='supplemental'>Supplemental Learning</p>
+        <p>
+For supplemental learning this week, I learned more about SQL because I was working on setting up the tables and for the group project this week. In particular, I needed to learn more about foreign keys and how to create them to link different tables. For example, we had a products table which would have a foreign key that is linked to the categories table which has the primary key of different categories. I also learned more about INNER JOIN and how to write SQL queries with INNER JOIN. INNER JOIN is useful to bring two or more tables together and to access the values of their columns. The <a href= “https://www.w3schools.com/sql/sql_join.asp” >W3Schools</a> was a useful reference for inner joins and other SQL topics.
+
+
+        </p>
+
+	      
+	      
+	      
+	      
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+   
+          
+          
+      </article>
+    </main>
+    <hr>
+    <footer>
+      Last updated 11/12/2021        
+    </footer>
+  </body>
+</html>
