@@ -59,13 +59,10 @@ This week, we continued to work on the coffee project website. It was alot of fu
 This week I also focused on completely rewriting the Edit Products page. The Edit Products page now has a link for each product
 	      that directs you to a page called Edit Single Product that lets you edit all the fields of the products except for
 	      changing the product id, product category, or its image. I think the product id should never change, while it should be ok 
-	      to implement changing of the product category and image in the future. The Edit Single Product page will actually look different depending
-	      on how the user navigated to the site. If the user navigated to the site from the Edit Products page after having clicked on 
-	      a link to edit a specific item, the website will load with a $_GET variable id with the value of the product id. When the
-	      Edit Single Product page has a $_GET variable id, then it will simply display the editable information for that 
-	      product id. On the other hand, if the the user went to the Edit Single Product page by clicking on the link in the header,
-	      the page would show a drop down select menu with all the items and allow the user to select the item they would like
-	      to edit. 
+	      to implement changing of the product category and image in the future. To edit products, the user needs to click on
+	      the name of the product to edit. Then, on the Edit Single Product page, the user
+	      edits to the input fields that have been populated with the current database data for that product. Upon
+	      clicking Save, a query is made to update the data on the database with the newly updated data.
 	      
 	      
 </p><p>
@@ -91,10 +88,36 @@ This week I also focused on completely rewriting the Edit Products page. The Edi
 	      
 	      
 	      </p><p>
-I will also continue to work on the view products page. The page currently consists of a flex display with cards representing each product. I would like to add the product image to each card and to add more data displayed to each of those cards. Since upgrading the fields in the products database table, it is definitely possible to add product information such as the ingredients, calories, image, origin, and serving size to the view products page. 
-</p><p>
-Lastly, I would also like to try to build out the categories create-read-update-delete pages. I think these can be patterned after the pages from the products.
-</p>
+This week I also added the create-read-update-delete pages for the categories. This included the Add Category page, the View Category page,
+	      and the Edit Category Page. These pages were considerably simpler than the product pages, because the category table
+	      only had fields for id, name, image, and status. The admin user is able to add new categories and optionally add a
+	      unique picture for the category. The user is able to choose whether the category is active or inactive. 
+	      
+	      
+	      
+	      </p><p>
+
+	      The View Category page then presents a table that lists all the current categories. Since there are only a handful of
+	      categories (6 at the moment), it was not necessary to implement a number of different pages. However the categories
+	      can be sorted by id, name, and status. There is also an image showing the representation of the category. If the
+	      image was not uploaded, a default coffee bean image is shown.
+	      
+	      </p>
+	      
+	      <p>
+	      Lastly, the Edit Category page allows the user to edit the category selected.
+		      
+		      
+		      
+		      The Edit Category page will actually look different depending
+	      on how the user navigated to the site. If the user navigated to the site from the View Categories page after having clicked on 
+	      a link to edit a specific item, the website will load with a $_GET variable id with the value of the product id. When the
+	      Edit Category page has a $_GET variable id, then it will simply display the editable information for that 
+	      product id. On the other hand, if the the user went to the Edit Category page by clicking on the link in the header,
+	      the page would show a drop down select menu with all the categories and allow the user to select the category they would like
+	      to edit. 
+	      
+	      </p>
 <p class='supplemental'>Supplemental Learning</p>
         <p>
 This week, I was trying to research how to style content where when the user scrolls down the page, the content changes opacity from 0 to 1 and transforms upward. I was not able to figure out definitively how to do this but it seems to involve JavaScript and trying to determine the window position and the div top and bottom location. So while that attempt to learn that content did not completely work out, I did end up learning about transforms. 
@@ -144,7 +167,7 @@ Transforms are a really amazing property that move the location of an object. Fo
     </main>
     <hr>
     <footer>
-      Last updated 11/23/2021        
+      Last updated 11/24/2021        
     </footer>
   </body>
 </html>
