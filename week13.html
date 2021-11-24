@@ -1,1 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Week 13</title>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Victor's Learning Journal at LBCC PHP/MySQL</h1>
+    <nav>
+        <a href="index.html">Table of Contents</a>&nbsp;|&nbsp;
+        <a href="week12.html">Go to Week 12</a> |&nbsp;
+	<!-- <a href="week8.html">Go to Week 8</a> |&nbsp; -->
+        <a href="https://group1.webdevstudent.me/coffee_test/view_products.php">View Products</a>
+    </nav>
+    <main>
+      
 
+      <article>
+        <h3>Week 13</h3>
+        <p>
+          <time datetime="2021-11-23">November 23 2021</time>
+        </p>
+
+       
+        
+        
+         <p>
+This week, we continued to work on the coffee project website. It was alot of fun building out the create-read-update-delete system of pages for the products
+           and categories. It was a multi-step process because the fields in the database needed to be expanded. This week, I added additional fields to the
+           database to accomodate data that would be user-centric and would be information that the user would be interested in learning about. For example,
+           the product image, product origin, ingredients, calories, and serving size were added to the database. The product image was a VARCHAR that 
+           was the address of the image PNG or JPEG, while the product origin, ingredients, and serving size were VARCHAR to describe where the product
+           originated geographically, the ingredients used to create the product, and the size of the product. Meanwhile, the calories was a numeric value. 
+           
+        
+        </p><p>
+
+        
+        After upgrading the database fields, I worked on implementing all those new fields into the create-read-update-delete pages. This started with the
+        Add Products page, where the enctype attribute for the form has the value multipart/form-data. This is necessary for the form to be able to 
+        upload files. Also of note was that there is a hidden input field for MAX_FILE_SIZE. The file upload processing would result in a $_FILES['upload']['error']
+        code. A code of 0 means the file was successfully uploaded, while a code of values 1-4 and 6-8 would mean an error occurred. It was very
+        convenient to use a switch statement to do selective processing of these error codes. For example, for error code 4 where no file
+        was uploaded, I simply had the program
+        break because I would simply set a default image for the file. Meanwhile, for error code 2 where the file uploaded exceeds the MAX_FILE_SIZE,
+        I would simply echo to the user that the file size was too large. Since the switch statements in PHP fall through, it is possible to have multiple 
+        cases do the same action if you omit the break statement.
+        
+        
+        
+        </p><p>
+
+        
+        
+        
+        </p><p>
+I also focused on working on the create-read-update-delete aspect of the products. This involved creating the add products page, view products page, and the edit products page. The 
+	      <img src='edit_products.PNG' width="600">edit products page currently contains the most information with all the current fields in the products database table displayed. This page has limited sorting capability when you click on the table headers. Also, the pages are numbered so that only 10 listings are shown per page and you can click on the numbered pages or on “Next” or “Previous” to go forward or backward. When you click on the name of a product such as “Hot Coffee”, you are taken to edit_single_product.php page which lets you edit nearly all the fields of the product. I decided to omit the image field and category type at the moment. 
+</p><p>
+The edit products table could be improved by better CSS styling. I mainly focused on getting the PHP and mySQL queries to work correctly and to display the data in a table format. However, we could definitely improve the table styling and readability.
+</p><p>
+I worked on the add products page but it does not yet have all the newly added fields in the products table.  I will try to add all the fields into the add products page such as uploading images and coffee ingredients and origin input fields. 
+</p><p>
+I will also continue to work on the view products page. The page currently consists of a flex display with cards representing each product. I would like to add the product image to each card and to add more data displayed to each of those cards. Since upgrading the fields in the products database table, it is definitely possible to add product information such as the ingredients, calories, image, origin, and serving size to the view products page. 
+</p><p>
+Lastly, I would also like to try to build out the categories create-read-update-delete pages. I think these can be patterned after the pages from the products.
+</p>
+<p class='supplemental'>Supplemental Learning</p>
+        <p>
+This week, I was trying to research how to style content where when the user scrolls down the page, the content changes opacity from 0 to 1 and transforms upward. I was not able to figure out definitively how to do this but it seems to involve JavaScript and trying to determine the window position and the div top and bottom location. So while that attempt to learn that content did not completely work out, I did end up learning about transforms. 
+     </p><p>
+Transforms are a really amazing property that move the location of an object. For example, when you hover over a button, you can set its transform to translateY(1em), which causes the button to move down 1em. Then, on the CSS of the original item, you set a transition with the value of transform, 500ms, which causes the transform to complete over half a second. Here is an example which works when you hover over the button. 
+</p>
+        
+	        <div id="button">
+<button>Hover</button>
+	      </div>
+
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+       
+
+	      
+	      
+	      
+	      
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+   
+          
+          
+      </article>
+    </main>
+    <hr>
+    <footer>
+      Last updated 11/23/2021        
+    </footer>
+  </body>
+</html>
