@@ -50,17 +50,47 @@ This week, we continued to work on the coffee project website. It was alot of fu
         
         </p><p>
 
-        
+        After modifying the query in the Add Products page with the newly added fields, I checked in the database to make sure all the fields were 
+	      correctly adding to the table. The one field that had problems at first was the image field. At first, the image location string did
+	      not add correctly. After concatenating the file path, the image was then able to display properly on the View Products page. 
         
         
         </p><p>
-I also focused on working on the create-read-update-delete aspect of the products. This involved creating the add products page, view products page, and the edit products page. The 
-	      <img src='edit_products.PNG' width="600">edit products page currently contains the most information with all the current fields in the products database table displayed. This page has limited sorting capability when you click on the table headers. Also, the pages are numbered so that only 10 listings are shown per page and you can click on the numbered pages or on “Next” or “Previous” to go forward or backward. When you click on the name of a product such as “Hot Coffee”, you are taken to edit_single_product.php page which lets you edit nearly all the fields of the product. I decided to omit the image field and category type at the moment. 
+This week I also focused on completely rewriting the Edit Products page. The Edit Products page now has a link for each product
+	      that directs you to a page called Edit Single Product that lets you edit all the fields of the products except for
+	      changing the product id, product category, or its image. I think the product id should never change, while it should be ok 
+	      to implement changing of the product category and image in the future. The Edit Single Product page will actually look different depending
+	      on how the user navigated to the site. If the user navigated to the site from the Edit Products page after having clicked on 
+	      a link to edit a specific item, the website will load with a $_GET variable id with the value of the product id. When the
+	      Edit Single Product page has a $_GET variable id, then it will simply display the editable information for that 
+	      product id. On the other hand, if the the user went to the Edit Single Product page by clicking on the link in the header,
+	      the page would show a drop down select menu with all the items and allow the user to select the item they would like
+	      to edit. 
+	      
+	      
 </p><p>
-The edit products table could be improved by better CSS styling. I mainly focused on getting the PHP and mySQL queries to work correctly and to display the data in a table format. However, we could definitely improve the table styling and readability.
-</p><p>
-I worked on the add products page but it does not yet have all the newly added fields in the products table.  I will try to add all the fields into the add products page such as uploading images and coffee ingredients and origin input fields. 
-</p><p>
+
+	      By completely rewriting the Edit Products page, it now instead shows a table of products that are sortable by different
+	      table headers such as product name, product id, category, or price. The sorting is done through PHP by changing the
+	      sort by value in the database query. A small thumbnail picture of the product is also shown on the Edit Products page. 
+	      
+	      </p><p>
+
+	      The View Products page was also modified this week to improve the user experience. An image is displayed of each product
+	      to the user in addition to relevant information about each product. 
+	      
+	      
+	      
+	      This data includes the price, origin, serving size,
+	      calories, and description of the product. I also wanted to make the page more visually appealing so I added a cursive font from
+	      Google Fonts called Lobster for the H1 heading "Menu" and also used a flexbox to space evenly the filter buttons
+	      across the top of the page. I added a transition for the background color for the buttons when a different button is clicked,
+	      and for the other buttons that are not clicked to return to the original background color. There is definitely still
+	      areas to improve on the layout and styling of the View Products page.
+	      
+	      
+	      
+	      </p><p>
 I will also continue to work on the view products page. The page currently consists of a flex display with cards representing each product. I would like to add the product image to each card and to add more data displayed to each of those cards. Since upgrading the fields in the products database table, it is definitely possible to add product information such as the ingredients, calories, image, origin, and serving size to the view products page. 
 </p><p>
 Lastly, I would also like to try to build out the categories create-read-update-delete pages. I think these can be patterned after the pages from the products.
