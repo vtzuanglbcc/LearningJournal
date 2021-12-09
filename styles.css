@@ -3,6 +3,7 @@ body {
     margin: 2%;
     font-family: Arial;
     background-color: rgb(130, 170, 212);
+    font-size: 1.2em;
   }
   h1 {
     text-shadow: 1px 1px 1px darkblue; 
