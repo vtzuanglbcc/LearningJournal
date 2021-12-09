@@ -1,1 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Week 14</title>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Victor's Learning Journal at LBCC PHP/MySQL</h1>
+    <nav>
+        <a href="index.html">Table of Contents</a>&nbsp;|&nbsp;
+        <a href="week13.html">Go to Week 14</a> |&nbsp;
+	<!-- <a href="week8.html">Go to Week 8</a> |&nbsp; -->
+        <a href="https://group1.webdevstudent.me/coffee_test/home.php">Coffee Break Home Page</a>
+    </nav>
+    <main>
+      
 
+      <article>
+        <h3>Week 15</h3>
+        <p>
+          <time datetime="2021-12-09">December 9 2021</time>
+        </p>
+
+       
+        
+      
+<p>
+
+We had a great experience collaborating and working on Coffee Break this week. We worked on CSS, site design, and also adding features and content. Discord was very helpful to communicate with everyone and to let everyone know what changes we made to the site to make sure our files were up to date. I think this project definitely helped me work on communication, working in teams, and managing a project. 
+        
+        
+        </p><p>
+This past week, we worked on adding the Detail Product View page with reviews and also a shopping cart page to the Coffee Break website. To accommodate the reviews, a new table in the database was created with fields for nickname, review title, the review text, an overall score, and whether the user would recommend this product. After the review is submitted, it is posted on the detail product page with the date the review was written. Also, the average value of the reviews was calculated from all the reviews and the number of reviews total is also displayed.
+	      
+	      
+</p><p>
+It was a lot of fun creating the review system. I think part of the fun was also trying to figure out how to display stars and using the clock and checkbox HTML symbols. The symbols are pretty simple and easy to use but add a nice fun user experience to the reviews. I didn't realize prior to doing this that HTML does not have half star symbols. I would need to use FontAwesome or some other CDN to do half stars. Because of that, I did not use stars for the average review score which could be an decimal like 3.3. 
+	      
+	      </p><p>
+
+	  
+	      
+	      
+	      
+	      
+	      
+	      
+	      
+	      
+While researching the star ratings and looking at other sites, I noticed some nice designs where if you over on 3 stars, it would change the background color of up to 3 stars into a different color. I thought that design was really nice but I was not sure at the time of how to implement that style. On the Product Detail View page, we also received great suggestions last week to improve the options for users. So each product now has two sizes. For example, the hot coffee comes in 16 fl oz and 32 fl oz. It was fun playing around with the CSS and JavaScript to make the button turn green to let the user know which size is currently selected. Based on the selected size, the price and caloric count would change. 
+	      
+	      
+	      
+	      </p><p>The Add to Cart button also had some CSS and JavaScript to make it more interesting. When you click on the Add to Cart button, a message pops up under the button to say “Added to Cart!”. 
+	      </p><p>
+
+It was really exciting trying to figure out how to add the shopping cart this week. It was challenging trying to decide how to store the data of the items that were added to the cart to then display to the user. I ended up using local storage rather than the database to store the data because it would not make sense to have everyone's cart stored on the database especially if you wanted users to use a cart while not signed in. 
+	      
+	      </p>
+	      
+	      <p>
+	     It was definitely tricky to get the local storage to work. I was thinking if a user clicked on “Add to Cart” multiple times, it would result in the name of that item stored in local storage multiple times. To fix this, I ended up using the includes() array function to create an array that would only have each food item be in the local storage only once. The quantity of that item would be then stored in local storage so if the user clicked and added that item three times, then the local storage would increase the quantity to 3. In the end of that cart experiment, I learned that it is much easier working with arrays than sets. Sets don't seem to have as many useful functions as arrays to manipulate the items they hold, and I don't think there is a way to sort a set. Meanwhile, it was fun concatenating arrays, sorting them, and filtering them. 
+	      
+	      </p>
+<p class='supplemental'>Supplemental Learning</p>
+        <p>
+It has been a great experience learning PHP and one aspect that I wanted to start learning in PHP is the object-oriented features of PHP. I was reading the chapter in the book that introduces these features and the syntax is very interesting! For example, to create an instance of a Car object, you can type $my_car = new Car('Toyota', 'Prius', 'white', '2010');. Meanwhile, to access the year of the car, you would type $my_car->year. So $my_car->year is the whole variable name that equals '2010'. If the object had a function, then you could also call that method by doing $my_car->start_car();. 
+        </p><p>
+This is really just scratching the surface. It will be exciting to learn more features of PHP and also learning more about how to integrate PHP and JavaScript.
+	      </p>
+	      
+        
+
+
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+       
+
+	      
+	      
+	      
+	      
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+   
+          
+          
+      </article>
+    </main>
+    <hr>
+    <footer>
+      Last updated 12/9/2021        
+    </footer>
+  </body>
+</html>
