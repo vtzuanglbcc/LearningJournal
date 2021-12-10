@@ -7,11 +7,64 @@
   <body>
     <h1>Victor's Learning Journal at LBCC PHP/MySQL</h1>
     <nav>
-        <a href="index.html">Table of Contents</a>&nbsp;|&nbsp;
+        <a href="index.html">Home</a>&nbsp;|&nbsp;
         <a href="week7.html">Go to Week 7</a> |&nbsp;
 	 <a href="week9.html">Go to Week 9</a> |&nbsp; 
         <a href="https://tzuang.webdevstudent.me/lab8/list_dept_p.php">Add Departments Website with Sorting/Pagination</a>
     </nav>
+
+    <aside>
+      <!--
+        <h3>Contents</h3>
+      -->
+
+      <nav>
+        <ul>
+          <li>
+            <a href="week1.html">Week 1</a>
+          </li>
+          <li>
+            <a href="week2.html">Week 2</a>
+          </li>
+          <li>
+            <a href="week3.html">Week 3</a>
+          </li>
+          <li>
+            <a href="week4.html">Week 4</a>
+          </li>
+          <li>
+            <a href="week5.html">Week 5</a>
+          </li>
+          <li>
+            <a href="week6.html">Week 6</a>
+          </li>
+          <li>
+            <a href="week7.html">Week 7</a>
+          </li>
+          <li>
+            <a href="week8.html">Week 8</a>
+          </li>
+          <li>
+            <a href="week9.html">Week 9</a>
+          </li>
+          <li>
+            <a href="week10.html">Week 10</a>
+          </li>
+          <li>
+            <a href="week11.html">Week 11</a>
+          </li>
+          <li>
+            <a href="week12.html">Week 12</a>
+          </li>
+          <li>
+            <a href="week13.html">Week 14</a>
+          </li>
+          <li>
+            <a href="week15.html">Week 15</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
     <main>
       
 
@@ -29,14 +82,14 @@
         </p>
         
         <blockquote><pre>
-                if( (isset($_GET['id'])) && (is_numeric($_GET['id])) ) {
-                  $id = $_GET['id'];
-                } elseif ( (isset($_POST['id'])) && (is_numeric($_POST['id'])) ) {
-                  $id = $_POST['id'];
-                } else {
-                  // message indicated this page accessed in error
-                  exit();
-                }
+  if( (isset($_GET['id'])) && (is_numeric($_GET['id])) ) {
+    $id = $_GET['id'];
+  } elseif ( (isset($_POST['id'])) && (is_numeric($_POST['id'])) ) {
+    $id = $_POST['id'];
+  } else {
+    // message indicated this page accessed in error
+    exit();
+  }
 </pre></blockquote>
         <p>
 the if statement first checks if the id has been passed with the GET method, and it if has, then $id is set to this value. The elseif statement checks if the id has been passed with the POST method, and if it has, the $id is set to this value. The POST occurs when this edit page is submitted upon itself to edit the page. Meanwhile, if neither the id has been submitted by GET or POST, then this page was been reached in error. 

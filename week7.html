@@ -2,120 +2,263 @@
 <html>
   <head>
     <title>Week 7</title>
-    <link href="styles.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
     <h1>Victor's Learning Journal at LBCC PHP/MySQL</h1>
     <nav>
-        <a href="index.html">Table of Contents</a>&nbsp;|&nbsp;
-        <a href="week6.html">Go to Week 6</a> |&nbsp;
-	<a href="week8.html">Go to Week 8</a> |&nbsp;
-        <a href="https://tzuang.webdevstudent.me/add_depts.php">Add Departments Website</a>
+      <a href="index.html">Home</a>&nbsp;|&nbsp;
+      <a href="week6.html">Go to Week 6</a> |&nbsp;
+      <a href="week8.html">Go to Week 8</a> |&nbsp;
+      <a href="https://tzuang.webdevstudent.me/add_depts.php"
+        >Add Departments Website</a
+      >
     </nav>
-    <main>
-      
 
+    <aside>
+      <!--
+        <h3>Contents</h3>
+      -->
+
+      <nav>
+        <ul>
+          <li>
+            <a href="week1.html">Week 1</a>
+          </li>
+          <li>
+            <a href="week2.html">Week 2</a>
+          </li>
+          <li>
+            <a href="week3.html">Week 3</a>
+          </li>
+          <li>
+            <a href="week4.html">Week 4</a>
+          </li>
+          <li>
+            <a href="week5.html">Week 5</a>
+          </li>
+          <li>
+            <a href="week6.html">Week 6</a>
+          </li>
+          <li>
+            <a href="week7.html">Week 7</a>
+          </li>
+          <li>
+            <a href="week8.html">Week 8</a>
+          </li>
+          <li>
+            <a href="week9.html">Week 9</a>
+          </li>
+          <li>
+            <a href="week10.html">Week 10</a>
+          </li>
+          <li>
+            <a href="week11.html">Week 11</a>
+          </li>
+          <li>
+            <a href="week12.html">Week 12</a>
+          </li>
+          <li>
+            <a href="week13.html">Week 14</a>
+          </li>
+          <li>
+            <a href="week15.html">Week 15</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <main>
       <article>
         <h3>Week 7</h3>
         <p>
           <time datetime="2021-10-15">October 15 2021</time>
         </p>
         <p>
-         This week, we created registration and login forms that were connected to the database. I found this really exciting and interesting because this 
-allows us to create a user in the database, then have the user log in with the email and password they created. In doing so, we 
-no longer need to use hardcoded passwords to login, but can have a changing set of emails and passwords to login. To start doing this, we first created a PHP script to 
-connect to the database. This was covered in the previous week but it was good to review all the aspects of the 
-database connection file. Essentially, we need to connect to a database which will contain the table we are accessing. The database connection will
-have a database user name and password, in addition to the database host which is set to 127.0.0.1 and the name of the database itself. This is all
-set up in the cPanel mySQL Database area. Simply create a database of your liking with your chosen name, then link that
-database to a username and set up a database password for that user to access that database. 
-
+          This week, we created registration and login forms that were connected
+          to the database. I found this really exciting and interesting because
+          this allows us to create a user in the database, then have the user
+          log in with the email and password they created. In doing so, we no
+          longer need to use hardcoded passwords to login, but can have a
+          changing set of emails and passwords to login. To start doing this, we
+          first created a PHP script to connect to the database. This was
+          covered in the previous week but it was good to review all the aspects
+          of the database connection file. Essentially, we need to connect to a
+          database which will contain the table we are accessing. The database
+          connection will have a database user name and password, in addition to
+          the database host which is set to 127.0.0.1 and the name of the
+          database itself. This is all set up in the cPanel mySQL Database area.
+          Simply create a database of your liking with your chosen name, then
+          link that database to a username and set up a database password for
+          that user to access that database.
         </p>
-        <p>I ended up setting up some more databases for practice as this is new to me and it helps to repeat it several times. After setting up the database, I also
-set up the FTP again from Visual Studio Code to the FTP server on the cPanel. This allows for near instant upload of files to the server after saving the file. To
-set the sFTP, you need to find the FTP host name which is in the FTP area of cPanel. I changed to protocol to ftp and the port to 21. The username and password used
-here is different from the database login. It is the credentials used to login to cPanel. And the remote path is where the location on the server where the files will be synced
-to on the server. Once this is all set up, it makes creating scripts and instantly seeing the changes on the webserver simple.
-
-        </p>
-        
         <p>
-Once those two steps are complete, I started to work on the registration.php site. This site is not complicated but I did run into several bugs along the way. Most notably, I missed a few
-semicolons which took a while to find and also the encryption SHA function the textbook uses does not work for me to I tried a different encryption function and it seemed to work. In the textbook,
-the author uses this SQL query to add an entry to the database:
+          I ended up setting up some more databases for practice as this is new
+          to me and it helps to repeat it several times. After setting up the
+          database, I also set up the FTP again from Visual Studio Code to the
+          FTP server on the cPanel. This allows for near instant upload of files
+          to the server after saving the file. To set the sFTP, you need to find
+          the FTP host name which is in the FTP area of cPanel. I changed to
+          protocol to ftp and the port to 21. The username and password used
+          here is different from the database login. It is the credentials used
+          to login to cPanel. And the remote path is where the location on the
+          server where the files will be synced to on the server. Once this is
+          all set up, it makes creating scripts and instantly seeing the changes
+          on the webserver simple.
         </p>
-        <blockquote><pre>
+
+        <p>
+          Once those two steps are complete, I started to work on the
+          registration.php site. This site is not complicated but I did run into
+          several bugs along the way. Most notably, I missed a few semicolons
+          which took a while to find and also the encryption SHA function the
+          textbook uses does not work for me to I tried a different encryption
+          function and it seemed to work. In the textbook, the author uses this
+          SQL query to add an entry to the database:
+        </p>
+        <blockquote>
+          <pre>
             $query = "INSERT INTO users (first_name, last_name, email, pass, registration_date)
 	                    VALUES ('$first_name', '$last_name', '$email', SHA2('$pass', 512), NOW() )";
 
-        </pre></blockquote>
+        </pre
+          >
+        </blockquote>
         <p>
-          I tried to do this multiple times but it never worked. Eventually, I Googled PHP and SHA and I found a function called hash(). I tried doing this instead:
-
-          
+          I tried to do this multiple times but it never worked. Eventually, I
+          Googled PHP and SHA and I found a function called hash(). I tried
+          doing this instead:
         </p>
-        <blockquote><pre>
+        <blockquote>
+          <pre>
             $hash = hash('sha512', $pass);
             $query = "INSERT INTO users (first_name, last_name, email, pass, registration_date)
 	                    VALUES ('$first_name', '$last_name', '$email', $hash, NOW() )";
 
-        </pre></blockquote>
+        </pre
+          >
+        </blockquote>
         <p>
-          This actually worked and I was able to see a really long alphanumeric password in the database for that entry. I don't know if this is the correct way to do it but basically the hash() function takes the $pass variable and creates a hash using
-'sha512' encryption. Then that value is stored in $hash and passed into the database query. Hopefully, this is an acceptable way to do it. I did find it strange that I could not find a PHP manual page about SHA() but I was glad to find a hash() function instead.
-
+          This actually worked and I was able to see a really long alphanumeric
+          password in the database for that entry. I don't know if this is the
+          correct way to do it but basically the hash() function takes the $pass
+          variable and creates a hash using 'sha512' encryption. Then that value
+          is stored in $hash and passed into the database query. Hopefully, this
+          is an acceptable way to do it. I did find it strange that I could not
+          find a PHP manual page about SHA() but I was glad to find a hash()
+          function instead.
         </p>
         <p>
-          The rest of the registration form was alot of checking to make sure the user entered in the values. For example, if the user did not enter in a first name, then the $errors array would append another message by:
-
+          The rest of the registration form was alot of checking to make sure
+          the user entered in the values. For example, if the user did not enter
+          in a first name, then the $errors array would append another message
+          by:
         </p>
-        <blockquote><pre>
+        <blockquote>
+          <pre>
             $errors[] = "You did not enter in a first name.";
-        </pre></blockquote>
+        </pre
+          >
+        </blockquote>
         <p>
-           
-The PHP syntax for pushing an entry into the array is very interesting! It is simply the name of the array variable with two brackets []. If the user did enter in the text entry, then the value would be trimmed with the trim() function and then the value could be set to the 
-variable to use in the query. 
-          
-          
-        </p>  
-        <p>Another interesting function that came up was mysqli_real_escape_string. I tried to use this to resolve the SHA() problems but it wasn't helpful in that specific regard. Instead, the mysqli_real_escape_string is helpful in cleaning out special characters in a string so the SQL query will run correctly. According to the 
-PHP manual, the mysqli_real_escape_string procedural style is to have the database connection as the first parameter and the string as the second paramter:
-</p>
-        <blockquote><pre>
+          The PHP syntax for pushing an entry into the array is very
+          interesting! It is simply the name of the array variable with two
+          brackets []. If the user did enter in the text entry, then the value
+          would be trimmed with the trim() function and then the value could be
+          set to the variable to use in the query.
+        </p>
+        <p>
+          Another interesting function that came up was
+          mysqli_real_escape_string. I tried to use this to resolve the SHA()
+          problems but it wasn't helpful in that specific regard. Instead, the
+          mysqli_real_escape_string is helpful in cleaning out special
+          characters in a string so the SQL query will run correctly. According
+          to the PHP manual, the mysqli_real_escape_string procedural style is
+          to have the database connection as the first parameter and the string
+          as the second paramter:
+        </p>
+        <blockquote>
+          <pre>
             $first_name = mysqli_real_escape_string($connection, trim($_POST['first_name']));
           
-        </pre></blockquote>
-        <p>$connection is the connection between mySQL database and PHP, while the trim($_POST['first_name']) is simply a user input string that has been trimmed. 
+        </pre
+          >
+        </blockquote>
+        <p>
+          $connection is the connection between mySQL database and PHP, while
+          the trim($_POST['first_name']) is simply a user input string that has
+          been trimmed.
         </p>
-<p>          I did some experimenting with mysqli_real_escape_string($connection, trim($_POST['first_name']));. Essentially, if you omit the mysqli_real_escape_string, if the string the user enter has mySQL escape sequences, those escape sequences will be interpreted. For example, a \n will become a newline, and a \t will become a tab. Thus, when I entered in "\n\r\t\\\\Hello" for first_name without mysqli_real_escape_string, it became a newline, carriage return, a tab, and two backslashes. If I used mysqli_real_escape_string with the $connection and string value entered, then it would simply be saved into the database uninterpreted as the literal \n\r\t\\\\Hello. I thought this was so interesting and so I makes sense to use the mysqli_real_escape_string(), because you do not want the user to to entering in commands into the input boxes that the computer accidently interprets.
+        <p>
+          I did some experimenting with mysqli_real_escape_string($connection,
+          trim($_POST['first_name']));. Essentially, if you omit the
+          mysqli_real_escape_string, if the string the user enter has mySQL
+          escape sequences, those escape sequences will be interpreted. For
+          example, a \n will become a newline, and a \t will become a tab. Thus,
+          when I entered in "\n\r\t\\\\Hello" for first_name without
+          mysqli_real_escape_string, it became a newline, carriage return, a
+          tab, and two backslashes. If I used mysqli_real_escape_string with the
+          $connection and string value entered, then it would simply be saved
+          into the database uninterpreted as the literal \n\r\t\\\\Hello. I
+          thought this was so interesting and so I makes sense to use the
+          mysqli_real_escape_string(), because you do not want the user to to
+          entering in commands into the input boxes that the computer accidently
+          interprets.
         </p>
-<p>Another example detailed in the book of the important utility of mysqli_real_escape_string() was how mysqli_real_escape_string() prevents the breaking of the mySQL query to insert values. If the user's name was O'brien, the single quote will break the SQL query to insert the value. Here is a code fragment:
+        <p>
+          Another example detailed in the book of the important utility of
+          mysqli_real_escape_string() was how mysqli_real_escape_string()
+          prevents the breaking of the mySQL query to insert values. If the
+          user's name was O'brien, the single quote will break the SQL query to
+          insert the value. Here is a code fragment:
+        </p>
 
-        </p>
-       
-        <blockquote><pre>
+        <blockquote>
+          <pre>
             INSERT INTO USERS (first_name, last_name, email, pass, registration_date) VALUES('O\'brien', 'O'brien', ...
             
-         </pre></blockquote>
-         
-          
-          <p>
-           The first_name is processed through mysqli_real_escape_string() while the last_name is not. This results in a last name of 'O'brien' in the SQL query which creates an error in the query. Meanwhile, with mysqli_real_escape_string(), the first name's single quote is escaped out and the query is able to run successfully ('O\'brien'). Another important thing to emphasize is that mysqli_real_escape_string() requires a database connection to work, so be sure to import the database connection file before calling this function.
-        </p><p>
-Another question I had was why go through all this trouble hashing a password when you still only use your password to login and not the hashed password. I Googled this and it sounds like the purpose of hashing is to prevent a database leak from revealing all these passwords that are saved in the database. I am guessing it is not simple to unhash a password so a hashed password adds complexity to determining the password.
-        </p><p>
-The rest of the register.php file was pretty understandable and I ended up making mistakes in the echo statements by forgetting to put the semicolon at the end of statements. For example, if the user forgot to input the first name or last name, a message would be stored in the $errors array and then a foreach loop was used to display the messages.  
-          </p>
-          
-        
-            
-            <p>
-            We also created a file to display all the users in the database. The query to complete this was simply to SELECT the name and registration date of the users. The query used a CONCAT SQL function to concatenate the last name and first name and also the DATE_FORMAT() to present the registration date in a well formatted state. AS is used to rename the SQL column and it is used later to display the actual data in the table.
+         </pre
+          >
+        </blockquote>
 
-            
-            </p>
-            <blockquote><pre>
+        <p>
+          The first_name is processed through mysqli_real_escape_string() while
+          the last_name is not. This results in a last name of 'O'brien' in the
+          SQL query which creates an error in the query. Meanwhile, with
+          mysqli_real_escape_string(), the first name's single quote is escaped
+          out and the query is able to run successfully ('O\'brien'). Another
+          important thing to emphasize is that mysqli_real_escape_string()
+          requires a database connection to work, so be sure to import the
+          database connection file before calling this function.
+        </p>
+        <p>
+          Another question I had was why go through all this trouble hashing a
+          password when you still only use your password to login and not the
+          hashed password. I Googled this and it sounds like the purpose of
+          hashing is to prevent a database leak from revealing all these
+          passwords that are saved in the database. I am guessing it is not
+          simple to unhash a password so a hashed password adds complexity to
+          determining the password.
+        </p>
+        <p>
+          The rest of the register.php file was pretty understandable and I
+          ended up making mistakes in the echo statements by forgetting to put
+          the semicolon at the end of statements. For example, if the user
+          forgot to input the first name or last name, a message would be stored
+          in the $errors array and then a foreach loop was used to display the
+          messages.
+        </p>
+
+        <p>
+          We also created a file to display all the users in the database. The
+          query to complete this was simply to SELECT the name and registration
+          date of the users. The query used a CONCAT SQL function to concatenate
+          the last name and first name and also the DATE_FORMAT() to present the
+          registration date in a well formatted state. AS is used to rename the
+          SQL column and it is used later to display the actual data in the
+          table.
+        </p>
+        <blockquote>
+          <pre>
 		$query = "SELECT CONCAT(last_name, ', ', first_name) AS name,
 			    DATE_FORMAT(registration_date, '%M %d, %Y') AS dr
 			    FROM USERS
@@ -125,73 +268,113 @@ The rest of the register.php file was pretty understandable and I ended up makin
 
 		$num = mysqli_num_rows($result);
 
-             </pre></blockquote>
-            
-            <p>
-             The query is then run and we get the number of results returned by mysqli_num_rows($result). This is useful because if the number of results returned is zero, then there is no need to loop through the array returned by the database. If the number of results returned is greater than zero, then a table is created to print out the results row by row.
+             </pre
+          >
+        </blockquote>
 
-            </p>
-            <blockquote><pre>
+        <p>
+          The query is then run and we get the number of results returned by
+          mysqli_num_rows($result). This is useful because if the number of
+          results returned is zero, then there is no need to loop through the
+          array returned by the database. If the number of results returned is
+          greater than zero, then a table is created to print out the results
+          row by row.
+        </p>
+        <blockquote>
+          <pre>
                 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         		echo '<tr><td align="left">' . $row['name'] . '</td><td align="left">' . $row['dr'] . '</td></tr>';
     		}
 
-            </pre></blockquote>
-            
-            <p> 
-              The last script we went over this week was to update the password of a user that has already registered. To do this, we need to have the user enter in their email and old password along with a new password and a confirm password. If the email and password do not match an entry in the database, then we cannot proceed. To check if the email and password match an entry in the database, we run a SELECT query for a user id that has an email value and password value equal to what the user entered. 
+            </pre>
+        </blockquote>
 
-            </p>
-	      <blockquote><pre>
+        <p>
+          The last script we went over this week was to update the password of a
+          user that has already registered. To do this, we need to have the user
+          enter in their email and old password along with a new password and a
+          confirm password. If the email and password do not match an entry in
+          the database, then we cannot proceed. To check if the email and
+          password match an entry in the database, we run a SELECT query for a
+          user id that has an email value and password value equal to what the
+          user entered.
+        </p>
+        <blockquote>
+          <pre>
 	      	$query = "SELECT user_id FROM USERS
           		WHERE (email='$e'  AND pass='$hash') ";
-  		</pre></blockquote>
-            <p>
-              Here the password is set to equal the hashed value of the password. As mentioned above , the SHA() function did not work for me so I used the hash() function instead which takes as the first parameter the string value of the hash function, and a second parameter as the string that you want to hash. If this above query matches one and only one result using mysqli_num_rows($result), then we can proceed to change the password for the user. To change the password, we make sure the new password and confirm password are the same, and then we hash it and perform an UPDATE query.
-
-              
-            </p>
-              <blockquote><pre>
+  		</pre
+          >
+        </blockquote>
+        <p>
+          Here the password is set to equal the hashed value of the password. As
+          mentioned above , the SHA() function did not work for me so I used the
+          hash() function instead which takes as the first parameter the string
+          value of the hash function, and a second parameter as the string that
+          you want to hash. If this above query matches one and only one result
+          using mysqli_num_rows($result), then we can proceed to change the
+          password for the user. To change the password, we make sure the new
+          password and confirm password are the same, and then we hash it and
+          perform an UPDATE query.
+        </p>
+        <blockquote>
+          <pre>
               	$query = "UPDATE USERS
           	SET pass='$hashnew'
           		WHERE user_id='$row[0]' ";
 
 		$result = @mysqli_query($connection, $query);
-            </pre></blockquote>
-            
-            <p> 
-              How do we know if the update was successful? We can use the mysqli_affected_rows($connection) function which will return a value of the number of rows that were affected by the query. In this situation, we want the number of affected rows to be equal to 1. mysqli_affected_rows($connection) takes a parameter of the database connection, and will return the number of affected rows for INSERT, UPDATE, and DELETE queries. 
+            </pre
+          >
+        </blockquote>
 
-              
-            </p>
-            
-            
-            
-            <p> 
-              An important thing to emphasize again is the importance of using <b>mysqli_real_escape_string</b>($connection, $_POST['name']) for all user input. Again, if the user puts in single quotes or backslashes or escape sequences, mysqli_real_escape_string will deal with it appropriately and prevent a premature termination of the SQL query-- especially with the single quotation mark. For the backslashes, if you forget to use mysqli_real_escape_string(), they will simply be interpreted if they are escape sequences. So "\\" would become "\" and "\n" would become a newline. <em>Just use the mysqli_real_escape_string()!</em>
+        <p>
+          How do we know if the update was successful? We can use the
+          mysqli_affected_rows($connection) function which will return a value
+          of the number of rows that were affected by the query. In this
+          situation, we want the number of affected rows to be equal to 1.
+          mysqli_affected_rows($connection) takes a parameter of the database
+          connection, and will return the number of affected rows for INSERT,
+          UPDATE, and DELETE queries.
+        </p>
 
-            </p>
-            
-            
-          <p class="supplemental">
-           Supplemental Learning
-          </p>
-          
-          <p>
-		  This week, I worked on the <a href="https://tzuang.webdevstudent.me/add_depts.php">Add Departments Website</a> and wanted to add some JavaScript into the file.
-		  I did supplemental learning on addEventListener("click", () => {}) functions to add interactivity to the website such that when the user clicks on the AutoFill
-		  button, the website will automatically fill in values for the fields. I used Math.random() extensively to do this, and multiplied Math.random() by the length of the array
-		  that that held some sample Department names. Then Math.floor() was used to create an integer index for that array. I did the same for the background color. One thing
-		  I noticed about embedding JavaScript in PHP is oftentimes, the browser will not fetch a new version of JavaScript if it is linked to an outside file. Thus, for the
-		  background color changer to work, I needed to simply type in the JavaScript within the &lt;script&gt; tag directly on that PHP page.
-	      </p>
-          
-          
+        <p>
+          An important thing to emphasize again is the importance of using
+          <b>mysqli_real_escape_string</b>($connection, $_POST['name']) for all
+          user input. Again, if the user puts in single quotes or backslashes or
+          escape sequences, mysqli_real_escape_string will deal with it
+          appropriately and prevent a premature termination of the SQL query--
+          especially with the single quotation mark. For the backslashes, if you
+          forget to use mysqli_real_escape_string(), they will simply be
+          interpreted if they are escape sequences. So "\\" would become "\" and
+          "\n" would become a newline.
+          <em>Just use the mysqli_real_escape_string()!</em>
+        </p>
+
+        <p class="supplemental">Supplemental Learning</p>
+
+        <p>
+          This week, I worked on the
+          <a href="https://tzuang.webdevstudent.me/add_depts.php"
+            >Add Departments Website</a
+          >
+          and wanted to add some JavaScript into the file. I did supplemental
+          learning on addEventListener("click", () => {}) functions to add
+          interactivity to the website such that when the user clicks on the
+          AutoFill button, the website will automatically fill in values for the
+          fields. I used Math.random() extensively to do this, and multiplied
+          Math.random() by the length of the array that that held some sample
+          Department names. Then Math.floor() was used to create an integer
+          index for that array. I did the same for the background color. One
+          thing I noticed about embedding JavaScript in PHP is oftentimes, the
+          browser will not fetch a new version of JavaScript if it is linked to
+          an outside file. Thus, for the background color changer to work, I
+          needed to simply type in the JavaScript within the &lt;script&gt; tag
+          directly on that PHP page.
+        </p>
       </article>
     </main>
-    <hr>
-    <footer>
-      Last updated 10/22/2021        
-    </footer>
+    <hr />
+    <footer>Last updated 10/22/2021</footer>
   </body>
 </html>

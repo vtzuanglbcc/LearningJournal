@@ -2,185 +2,213 @@
 <html>
   <head>
     <title>Week 14</title>
-    <link href="styles.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
     <h1>Victor's Learning Journal at LBCC PHP/MySQL</h1>
     <nav>
-        <a href="index.html">Table of Contents</a>&nbsp;|&nbsp;
-        <a href="week12.html">Go to Week 12</a> |&nbsp;
-	<a href="week15.html">Go to Week 15</a> |&nbsp;
-        <a href="https://group1.webdevstudent.me/coffee_test/view_products.php">View Products</a>
+      <a href="index.html">Home</a>&nbsp;|&nbsp;
+      <a href="week12.html">Go to Week 12</a> |&nbsp;
+      <a href="week15.html">Go to Week 15</a> |&nbsp;
+      <a href="https://group1.webdevstudent.me/coffee_test/view_products.php"
+        >View Products</a
+      >
     </nav>
-    <main>
-      
 
+    <aside>
+      <!--
+        <h3>Contents</h3>
+      -->
+
+      <nav>
+        <ul>
+          <li>
+            <a href="week1.html">Week 1</a>
+          </li>
+          <li>
+            <a href="week2.html">Week 2</a>
+          </li>
+          <li>
+            <a href="week3.html">Week 3</a>
+          </li>
+          <li>
+            <a href="week4.html">Week 4</a>
+          </li>
+          <li>
+            <a href="week5.html">Week 5</a>
+          </li>
+          <li>
+            <a href="week6.html">Week 6</a>
+          </li>
+          <li>
+            <a href="week7.html">Week 7</a>
+          </li>
+          <li>
+            <a href="week8.html">Week 8</a>
+          </li>
+          <li>
+            <a href="week9.html">Week 9</a>
+          </li>
+          <li>
+            <a href="week10.html">Week 10</a>
+          </li>
+          <li>
+            <a href="week11.html">Week 11</a>
+          </li>
+          <li>
+            <a href="week12.html">Week 12</a>
+          </li>
+          <li>
+            <a href="week13.html">Week 14</a>
+          </li>
+          <li>
+            <a href="week15.html">Week 15</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <main>
       <article>
         <h3>Week 14</h3>
         <p>
           <time datetime="2021-11-30">November 30 2021</time>
         </p>
 
-       
-        
-        
-         <p>
-This week, we continued to work on the coffee project website. It was alot of fun building out the create-read-update-delete system of pages for the products
-           and categories. It was a multi-step process because the fields in the database needed to be expanded. This week, I added additional fields to the
-           database to accomodate data that would be user-centric and would be information that the user would be interested in learning about. For example,
-           the product image, product origin, ingredients, calories, and serving size were added to the database. The product image was a VARCHAR that 
-           was the address of the image PNG or JPEG, while the product origin, ingredients, and serving size were VARCHAR to describe where the product
-           originated geographically, the ingredients used to create the product, and the size of the product. Meanwhile, the calories was a numeric value. 
-           
-        
-        </p><p>
-
-        
-        After upgrading the database fields, I worked on implementing all those new fields into the create-read-update-delete pages. This started with the
-        Add Products page, where the enctype attribute for the form has the value multipart/form-data. This is necessary for the form to be able to 
-        upload files. Also of note was that there is a hidden input field for MAX_FILE_SIZE. The file upload processing would result in a $_FILES['upload']['error']
-        code. A code of 0 means the file was successfully uploaded, while a code of values 1-4 and 6-8 would mean an error occurred. It was very
-        convenient to use a switch statement to do selective processing of these error codes. For example, for error code 4 where no file
-        was uploaded, I simply had the program
-        break because I would simply set a default image for the file. Meanwhile, for error code 2 where the file uploaded exceeds the MAX_FILE_SIZE,
-        I would simply echo to the user that the file size was too large. Since the switch statements in PHP fall through, it is possible to have multiple 
-        cases do the same action if you omit the break statement.
-        
-        
-        
-        </p><p>
-
-        After modifying the query in the Add Products page with the newly added fields, I checked in the database to make sure all the fields were 
-	      correctly adding to the table. The one field that had problems at first was the image field. At first, the image location string did
-	      not add correctly. After concatenating the file path, the image was then able to display properly on the View Products page. 
-        
-        
-        </p><p>
-This week I also focused on completely rewriting the Edit Products page. The Edit Products page now has a link for each product
-	      that directs you to a page called Edit Single Product that lets you edit all the fields of the products except for
-	      changing the product id, product category, or its image. I think the product id should never change, while it should be ok 
-	      to implement changing of the product category and image in the future. To edit products, the user needs to click on
-	      the name of the product to edit. Then, on the Edit Single Product page, the user
-	      edits to the input fields that have been populated with the current database data for that product. Upon
-	      clicking Save, a query is made to update the data on the database with the newly updated data.
-	      
-	      
-</p><p>
-
-	      By completely rewriting the Edit Products page, it now instead shows a table of products that are sortable by different
-	      table headers such as product name, product id, category, or price. The sorting is done through PHP by changing the
-	      sort by value in the database query. A small thumbnail picture of the product is also shown on the Edit Products page. 
-	      
-	      </p><p>
-
-	      The View Products page was also modified this week to improve the user experience. An image is displayed of each product
-	      to the user in addition to relevant information about each product. 
-	      
-	      
-	      
-	      <img src="menu.png" alt="menu" width="500px">
-	      
-	      
-	      
-	      
-	      This data includes the price, origin, serving size,
-	      calories, and description of the product. I also wanted to make the page more visually appealing so I added a cursive font from
-	      Google Fonts called Lobster for the H1 heading "Menu" and also used a flexbox to space evenly the filter buttons
-	      across the top of the page. I added a transition for the background color for the buttons when a different button is clicked,
-	      and for the other buttons that are not clicked to return to the original background color. There is definitely still
-	      areas to improve on the layout and styling of the View Products page.
-	      
-	      
-	      
-	      </p><p>
-This week I also added the create-read-update-delete pages for the categories. This included the Add Category page, the View Category page,
-	      and the Edit Category Page. These pages were considerably simpler than the product pages, because the category table
-	      only had fields for id, name, image, and status. The admin user is able to add new categories and optionally add a
-	      unique picture for the category. The user is able to choose whether the category is active or inactive. 
-	      
-	      
-	      
-	      </p><p>
-
-	      The View Category page then presents a table that lists all the current categories. Since there are only a handful of
-	      categories (6 at the moment), it was not necessary to implement a number of different pages. However the categories
-	      can be sorted by id, name, and status. There is also an image showing the representation of the category. If the
-	      image was not uploaded, a default coffee bean image is shown.
-	      
-	      </p>
-	      
-	      <p>
-	      Lastly, the Edit Category page allows the user to edit the category selected.
-		      
-		      
-		      
-		      The Edit Category page will actually look different depending
-	      on how the user navigated to the site. If the user navigated to the site from the View Categories page after having clicked on 
-	      a link to edit a specific item, the website will load with a $_GET variable id with the value of the product id. When the
-	      Edit Category page has a $_GET variable id, then it will simply display the editable information for that 
-	      product id. On the other hand, if the the user went to the Edit Category page by clicking on the link in the header,
-	      the page would show a drop down select menu with all the categories and allow the user to select the category they would like
-	      to edit. 
-	      
-	      </p>
-<p class='supplemental'>Supplemental Learning</p>
         <p>
-This week, I was trying to further learn more about Vue. Previously, I had learned some basics about Vue for some research
-		into JavaScript frameworks. I had only barely scratched the surface in learning the enormous amount
-		of capabilities and properties of this JavaScript library. This time, I continued by learning about
-		class and style binding, which was something I was completely new to. This occurs when you bind
-		a style in CSS to a particular element in the HTML code using Vue. To accomplish this, you
-		use the Vue binder :style within the opening div (or other tag such as p, h1) and then 
-		set it equal to the style property you are interested in. For example, to set
-		 the background color to the variant's color in the data object, you would type :style="{backgroundColor: variant.color }".
-		The variant here is an instance of data in the data object and has the property of color. By
-		coding it this way, if you change the color in the data object, the view will reflect the change. For
-		example, when I changed the color in the object to blue, the background color of that div would
-		change to blue.
-	      </p>
-	      
-        
+          This week, we continued to work on the coffee project website. It was
+          alot of fun building out the create-read-update-delete system of pages
+          for the products and categories. It was a multi-step process because
+          the fields in the database needed to be expanded. This week, I added
+          additional fields to the database to accomodate data that would be
+          user-centric and would be information that the user would be
+          interested in learning about. For example, the product image, product
+          origin, ingredients, calories, and serving size were added to the
+          database. The product image was a VARCHAR that was the address of the
+          image PNG or JPEG, while the product origin, ingredients, and serving
+          size were VARCHAR to describe where the product originated
+          geographically, the ingredients used to create the product, and the
+          size of the product. Meanwhile, the calories was a numeric value.
+        </p>
+        <p>
+          After upgrading the database fields, I worked on implementing all
+          those new fields into the create-read-update-delete pages. This
+          started with the Add Products page, where the enctype attribute for
+          the form has the value multipart/form-data. This is necessary for the
+          form to be able to upload files. Also of note was that there is a
+          hidden input field for MAX_FILE_SIZE. The file upload processing would
+          result in a $_FILES['upload']['error'] code. A code of 0 means the
+          file was successfully uploaded, while a code of values 1-4 and 6-8
+          would mean an error occurred. It was very convenient to use a switch
+          statement to do selective processing of these error codes. For
+          example, for error code 4 where no file was uploaded, I simply had the
+          program break because I would simply set a default image for the file.
+          Meanwhile, for error code 2 where the file uploaded exceeds the
+          MAX_FILE_SIZE, I would simply echo to the user that the file size was
+          too large. Since the switch statements in PHP fall through, it is
+          possible to have multiple cases do the same action if you omit the
+          break statement.
+        </p>
+        <p>
+          After modifying the query in the Add Products page with the newly
+          added fields, I checked in the database to make sure all the fields
+          were correctly adding to the table. The one field that had problems at
+          first was the image field. At first, the image location string did not
+          add correctly. After concatenating the file path, the image was then
+          able to display properly on the View Products page.
+        </p>
+        <p>
+          This week I also focused on completely rewriting the Edit Products
+          page. The Edit Products page now has a link for each product that
+          directs you to a page called Edit Single Product that lets you edit
+          all the fields of the products except for changing the product id,
+          product category, or its image. I think the product id should never
+          change, while it should be ok to implement changing of the product
+          category and image in the future. To edit products, the user needs to
+          click on the name of the product to edit. Then, on the Edit Single
+          Product page, the user edits to the input fields that have been
+          populated with the current database data for that product. Upon
+          clicking Save, a query is made to update the data on the database with
+          the newly updated data.
+        </p>
+        <p>
+          By completely rewriting the Edit Products page, it now instead shows a
+          table of products that are sortable by different table headers such as
+          product name, product id, category, or price. The sorting is done
+          through PHP by changing the sort by value in the database query. A
+          small thumbnail picture of the product is also shown on the Edit
+          Products page.
+        </p>
+        <p>
+          The View Products page was also modified this week to improve the user
+          experience. An image is displayed of each product to the user in
+          addition to relevant information about each product.
 
+          <img src="menu.png" alt="menu" width="500px" />
 
-        
-        
-        
-        
-    
-        
-        
-        
-        
-        
-        
-       
+          This data includes the price, origin, serving size, calories, and
+          description of the product. I also wanted to make the page more
+          visually appealing so I added a cursive font from Google Fonts called
+          Lobster for the H1 heading "Menu" and also used a flexbox to space
+          evenly the filter buttons across the top of the page. I added a
+          transition for the background color for the buttons when a different
+          button is clicked, and for the other buttons that are not clicked to
+          return to the original background color. There is definitely still
+          areas to improve on the layout and styling of the View Products page.
+        </p>
+        <p>
+          This week I also added the create-read-update-delete pages for the
+          categories. This included the Add Category page, the View Category
+          page, and the Edit Category Page. These pages were considerably
+          simpler than the product pages, because the category table only had
+          fields for id, name, image, and status. The admin user is able to add
+          new categories and optionally add a unique picture for the category.
+          The user is able to choose whether the category is active or inactive.
+        </p>
+        <p>
+          The View Category page then presents a table that lists all the
+          current categories. Since there are only a handful of categories (6 at
+          the moment), it was not necessary to implement a number of different
+          pages. However the categories can be sorted by id, name, and status.
+          There is also an image showing the representation of the category. If
+          the image was not uploaded, a default coffee bean image is shown.
+        </p>
 
-	      
-	      
-	      
-	      
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-   
-          
-          
+        <p>
+          Lastly, the Edit Category page allows the user to edit the category
+          selected. The Edit Category page will actually look different
+          depending on how the user navigated to the site. If the user navigated
+          to the site from the View Categories page after having clicked on a
+          link to edit a specific item, the website will load with a $_GET
+          variable id with the value of the product id. When the Edit Category
+          page has a $_GET variable id, then it will simply display the editable
+          information for that product id. On the other hand, if the the user
+          went to the Edit Category page by clicking on the link in the header,
+          the page would show a drop down select menu with all the categories
+          and allow the user to select the category they would like to edit.
+        </p>
+        <p class="supplemental">Supplemental Learning</p>
+        <p>
+          This week, I was trying to further learn more about Vue. Previously, I
+          had learned some basics about Vue for some research into JavaScript
+          frameworks. I had only barely scratched the surface in learning the
+          enormous amount of capabilities and properties of this JavaScript
+          library. This time, I continued by learning about class and style
+          binding, which was something I was completely new to. This occurs when
+          you bind a style in CSS to a particular element in the HTML code using
+          Vue. To accomplish this, you use the Vue binder :style within the
+          opening div (or other tag such as p, h1) and then set it equal to the
+          style property you are interested in. For example, to set the
+          background color to the variant's color in the data object, you would
+          type :style="{backgroundColor: variant.color }". The variant here is
+          an instance of data in the data object and has the property of color.
+          By coding it this way, if you change the color in the data object, the
+          view will reflect the change. For example, when I changed the color in
+          the object to blue, the background color of that div would change to
+          blue.
+        </p>
       </article>
     </main>
-    <hr>
-    <footer>
-      Last updated 11/30/2021        
-    </footer>
+    <hr />
+    <footer>Last updated 11/30/2021</footer>
   </body>
 </html>

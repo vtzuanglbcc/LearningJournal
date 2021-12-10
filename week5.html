@@ -2,47 +2,103 @@
 <html>
   <head>
     <title>Week 5</title>
-    <link href="styles.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
     <h1>Victor's Learning Journal at LBCC PHP/MySQL</h1>
     <nav>
-        <a href="index.html">Table of Contents</a>&nbsp;|&nbsp;
-        <a href="week4.html">Go to Week 4</a> |&nbsp;
-        <a href="week6.html">Go to Week 6</a> |&nbsp;
-        <a href="
-https://liquidspringgreenrepository.victortzuang.repl.co/index.php">Mars Citizen Home Page</a>
+      <a href="index.html">Home</a>&nbsp;|&nbsp;
+      <a href="week4.html">Go to Week 4</a> |&nbsp;
+      <a href="week6.html">Go to Week 6</a> |&nbsp;
+      <a
+        href="
+https://liquidspringgreenrepository.victortzuang.repl.co/index.php"
+        >Mars Citizen Home Page</a
+      >
     </nav>
-    <main>
-      
 
+    <aside>
+      <!--
+        <h3>Contents</h3>
+      -->
+
+      <nav>
+        <ul>
+          <li>
+            <a href="week1.html">Week 1</a>
+          </li>
+          <li>
+            <a href="week2.html">Week 2</a>
+          </li>
+          <li>
+            <a href="week3.html">Week 3</a>
+          </li>
+          <li>
+            <a href="week4.html">Week 4</a>
+          </li>
+          <li>
+            <a href="week5.html">Week 5</a>
+          </li>
+          <li>
+            <a href="week6.html">Week 6</a>
+          </li>
+          <li>
+            <a href="week7.html">Week 7</a>
+          </li>
+          <li>
+            <a href="week8.html">Week 8</a>
+          </li>
+          <li>
+            <a href="week9.html">Week 9</a>
+          </li>
+          <li>
+            <a href="week10.html">Week 10</a>
+          </li>
+          <li>
+            <a href="week11.html">Week 11</a>
+          </li>
+          <li>
+            <a href="week12.html">Week 12</a>
+          </li>
+          <li>
+            <a href="week13.html">Week 14</a>
+          </li>
+          <li>
+            <a href="week15.html">Week 15</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <main>
       <article>
         <h3>Week 5</h3>
         <p>
           <time datetime="2021-10-01">October 1 2021</time>
         </p>
         <p>
-          This week we learned about sticky forms which allows the user to not need
-          to retype or reenter form input in case the form is incomplete
+          This week we learned about sticky forms which allows the user to not
+          need to retype or reenter form input in case the form is incomplete
           and needs additional information. The fields that the user has already
-          entered are maintained while a message is displayed to the user informing
-          them that other fields still need to be completed.
+          entered are maintained while a message is displayed to the user
+          informing them that other fields still need to be completed.
         </p>
         <p>
-          Oftentimes, these forms are submitted back to itself using the its 
+          Oftentimes, these forms are submitted back to itself using the its
           same name as the action. Here, the action is set to "form.php":
-          
         </p>
-        <blockquote><pre>
+        <blockquote>
+          <pre>
             &lt;form action="form.php" method="POST&gt;
-        </pre></blockquote>
+        </pre
+          >
+        </blockquote>
         <p>
-          For this to work, the form.php needs to check whether the user has input
-          information yet. This is done by checking whether the server request method
-          is POST or not:
-          
+          For this to work, the form.php needs to check whether the user has
+          input information yet. This is done by checking whether the server
+          request method is POST or not:
         </p>
-        <blockquote><pre>
+        <blockquote>
+          <pre>
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                $problem = false;
                
@@ -55,29 +111,34 @@ https://liquidspringgreenrepository.victortzuang.repl.co/index.php">Mars Citizen
                   $_POST = []         // clear the POST variables
               }
             }
-        </pre></blockquote>
+        </pre
+          >
+        </blockquote>
         <p>
           A thank you message is displayed when the form is completed and the
-          POST variables above are also then cleared. 
+          POST variables above are also then cleared.
         </p>
         <p>
-          In order to make the form sticky, the following code needs to be inserted
-          into value attribute in the input tag of the form for first name:
+          In order to make the form sticky, the following code needs to be
+          inserted into value attribute in the input tag of the form for first
+          name:
         </p>
-        <blockquote><pre>
+        <blockquote>
+          <pre>
             &lt;?php
                 if (isset($_POST['first_name'])) {
                 echo htmlspecialchars($_POST['first_name']);
                 }
             ?&gt;
-        </pre></blockquote>
+        </pre
+          >
+        </blockquote>
         <p>
-            For textareas, the php needs to echo directly into the space between
-          the opening and closing textarea tags. 
-          
-          
-        </p>  
-        <blockquote><pre>
+          For textareas, the php needs to echo directly into the space between
+          the opening and closing textarea tags.
+        </p>
+        <blockquote>
+          <pre>
             &lt;textarea name="comments"&gt;&lt;?php
                 if (isset($_POST['comments'])) {
                   echo htmlspecialchars($_POST['comments']);
@@ -85,14 +146,17 @@ https://liquidspringgreenrepository.victortzuang.repl.co/index.php">Mars Citizen
           
             ?&gt;&lt;/textarea&gt;
           
-        </pre></blockquote>
+        </pre
+          >
+        </blockquote>
         <p>
-          Meanwhile, for select drop down menus, the php needs to echo "selected" into the opening
-          option tag if the $_POST['day'] isset() and if that value equals the variable $i in the
-          for loop.
+          Meanwhile, for select drop down menus, the php needs to echo
+          "selected" into the opening option tag if the $_POST['day'] isset()
+          and if that value equals the variable $i in the for loop.
         </p>
-       
-        <blockquote><pre>
+
+        <blockquote>
+          <pre>
             &lt;select name="day"&gt;
             &lt;?php
                 for($i = 1; $i <= 30; $i++) {
@@ -106,27 +170,28 @@ https://liquidspringgreenrepository.victortzuang.repl.co/index.php">Mars Citizen
                 }
             ?&gt;
             &lt;/select&gt;
-         </pre></blockquote>
-         
-          
-          <p>
-            For input of type radio and checkbox, the php needs to echo "checked" into the input tag. 
-            This is similar to input of type text except for in type text, the php echos into the value
-            attribute using echo htmlspecialchars($_POST['last_name']).
-          </p>
-          
-          
-          <p class="supplemental">
-           Supplemental Learning
-          </p>
-          <p>
-           It was very interesting looking through the functions section of the PHP Manual and learning by
-            reading it and also trying out some code in Replit. One thing I got mistaken at first was 
-            adding a $ in front of the function name. Function names do not need a $. In this example,
-            I thought it was useful how echo can string together multiple values with a comma:
-            
-          </p>
-          <blockquote><pre>
+         </pre
+          >
+        </blockquote>
+
+        <p>
+          For input of type radio and checkbox, the php needs to echo "checked"
+          into the input tag. This is similar to input of type text except for
+          in type text, the php echos into the value attribute using echo
+          htmlspecialchars($_POST['last_name']).
+        </p>
+
+        <p class="supplemental">Supplemental Learning</p>
+        <p>
+          It was very interesting looking through the functions section of the
+          PHP Manual and learning by reading it and also trying out some code in
+          Replit. One thing I got mistaken at first was adding a $ in front of
+          the function name. Function names do not need a $. In this example, I
+          thought it was useful how echo can string together multiple values
+          with a comma:
+        </p>
+        <blockquote>
+          <pre>
                   $myArray = [1,2,3,4,5];
 
                   function add($array) {
@@ -134,31 +199,36 @@ https://liquidspringgreenrepository.victortzuang.repl.co/index.php">Mars Citizen
                   }
 
                   add($myArray);        //  echos the value "adding last two elements: 9"
-          </pre></blockquote>
-          <p>
-            If you have default values to parameters to a function, it's best to put 
-            them last in the parameter list.
-            
-          </p>
-         
-          <blockquote><pre>
+          </pre>
+        </blockquote>
+        <p>
+          If you have default values to parameters to a function, it's best to
+          put them last in the parameter list.
+        </p>
+
+        <blockquote>
+          <pre>
                 function bakeCookie($firstCookie, $secondCookie, $thirdCookie="chocolate chip") {
                     echo "\nBaking $firstCookie, $secondCookie, and $thirdCookie cookies today!";
                 }
 
                 bakeCookie("butter", "Sugar", "peanut butter");     // Baking butter, Sugar, and peanut butter cookies today!
                 bakeCookie("butter", "sugar");                      // Baking butter, sugar, and chocolate chip cookies today!
-          </pre></blockquote>
-          <p>
-            The manual also mentioned passing by reference values to a function by using an ampersand &.
-            Typically, when a variable is passed to a function, once the function is done, the variable
-            returns back to its original value. When an ampersand is used, the variable value may be changed
-            by the function and that change persists after the function. PHP calls this passing 
-            a value by reference. Here, the bank account starts with 1000. When it is passed to the function
-            annualAccountFee, the & causes the bankAccount to be passed as reference, and the bankAccount
-            variable is decreased by 10 to 990:
-          </p>
-          <blockquote><pre>
+          </pre>
+        </blockquote>
+        <p>
+          The manual also mentioned passing by reference values to a function by
+          using an ampersand &. Typically, when a variable is passed to a
+          function, once the function is done, the variable returns back to its
+          original value. When an ampersand is used, the variable value may be
+          changed by the function and that change persists after the function.
+          PHP calls this passing a value by reference. Here, the bank account
+          starts with 1000. When it is passed to the function annualAccountFee,
+          the & causes the bankAccount to be passed as reference, and the
+          bankAccount variable is decreased by 10 to 990:
+        </p>
+        <blockquote>
+          <pre>
                 function annualAccountFee (&$account) {
                   $account = $account - 10;
                 }
@@ -167,15 +237,18 @@ https://liquidspringgreenrepository.victortzuang.repl.co/index.php">Mars Citizen
                 annualAccountFee($bankAccount);
                 echo $bankAccount;                // 990
           
-          </pre></blockquote>
-          
-          <p>
-             PHP functions can also work with a arguments that are of different lengths.
-             This works by using the ... in the function parameter and also in the function
-              call if the argument passed is an array. Also, foreach is important here too
-              to loop through the arguments that are passed to the function.
-          </p>
-          <blockquote><pre>
+          </pre>
+        </blockquote>
+
+        <p>
+          PHP functions can also work with a arguments that are of different
+          lengths. This works by using the ... in the function parameter and
+          also in the function call if the argument passed is an array. Also,
+          foreach is important here too to loop through the arguments that are
+          passed to the function.
+        </p>
+        <blockquote>
+          <pre>
           
                function addAll(...$values) {
                   $sum = 0;
@@ -193,21 +266,18 @@ https://liquidspringgreenrepository.victortzuang.repl.co/index.php">Mars Citizen
               echo "\n";
               echo addAll(5,10,200,100);    // 315
               
-           </pre></blockquote>
-           <p>
-             Functions can also be not named and be anonymous. They can also be set
-             to variables and their values used as variables. The PHP manual mentioned
-             closures which can retain the value of variables from their enclosing scope.
-          </p>
-       
-          
-          
-          
+           </pre
+          >
+        </blockquote>
+        <p>
+          Functions can also be not named and be anonymous. They can also be set
+          to variables and their values used as variables. The PHP manual
+          mentioned closures which can retain the value of variables from their
+          enclosing scope.
+        </p>
       </article>
     </main>
-    <hr>
-    <footer>
-      Last updated 10/7/2021        
-    </footer>
+    <hr />
+    <footer>Last updated 10/7/2021</footer>
   </body>
 </html>
